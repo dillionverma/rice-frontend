@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Layout, Row, Col } from 'antd';
-import logo from './ricepay-transparent.png'
+import logo from '../../ricepay-transparent.png'
 import './Landing.css';
 const { Header, Footer, Sider, Content } = Layout;
 
