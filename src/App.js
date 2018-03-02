@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Dashboard from './Dashboard';
-import Landing from './Landing';
-import LoginForm from './components/LoginForm';
+import Dashboard from './features/dashboard/Dashboard';
+import Landing from './features/landing/Landing';
+import LoginForm from './features/login/LoginForm';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
