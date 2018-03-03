@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import './Dashboard.css';
 import logo from '../../ricepay-transparent.png'
+import { withRouter } from "react-router-dom";
+
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -10,10 +12,24 @@ class Dashboard extends React.Component {
     collapsed: false,
   };
   onCollapse = (collapsed) => {
-    console.log(collapsed);
     this.setState({ collapsed });
   }
+
+  handleClick = (e) => {
+    switch(parseInt(e.key)) {
+      case 1:
+        this.props.history.push('/dashboard')
+        break;
+      case 10:
+        this.props.history.push('/restaurant/tables')
+        break;
+    }
+  }
+
   render() {
+    function upCase(string){
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider
@@ -21,11 +37,12 @@ class Dashboard extends React.Component {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
           breakpoint={'md'}
+          style={{ background: '#fff' }}
         >
           <div className="logo">
             <img src={logo} alt={"logo"}/> 
           </div>
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu theme="light" defaultSelectedKeys={['1']} onSelect={this.handleClick.bind(this)} mode="inline">
             <Menu.Item key="1">
               <Icon type="home" />
               <span>Home</span>
@@ -53,12 +70,18 @@ class Dashboard extends React.Component {
             </SubMenu>
             <SubMenu
               key="sub3"
+              title={<span><Icon type="shopping-cart" /><span>Restaurant</span></span>}
+            >
+              <Menu.Item key="10">Tables</Menu.Item>
+            </SubMenu>
+            <SubMenu
+              key="sub4"
               title={<span><Icon type="setting" /><span>Settings</span></span>}
             >
-              <Menu.Item key="10">General</Menu.Item>
-              <Menu.Item key="11">Edit Profile</Menu.Item>
+              <Menu.Item key="11">General</Menu.Item>
+              <Menu.Item key="12">Edit Profile</Menu.Item>
             </SubMenu>
-            <Menu.Item key="12">
+            <Menu.Item key="13">
               <Icon type="logout" />
               <span>Logout</span>
             </Menu.Item>
@@ -68,10 +91,12 @@ class Dashboard extends React.Component {
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
+             {this.props.location.pathname.split('/').map((path) => 
+              <Breadcrumb.Item>{upCase(path)}</Breadcrumb.Item>
+             )}
             </Breadcrumb>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-              Welcome to Ricepay!
+              {this.props.children}
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
@@ -83,4 +108,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);
