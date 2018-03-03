@@ -1,7 +1,7 @@
 const BASE_URL = 'http://localhost:3000';
 
 function token() {
-  localStorage.getItem('token')
+  return localStorage.getItem('token')
 }
 
 const api = {
@@ -16,15 +16,14 @@ const api = {
       body: JSON.stringify(params),
     })
   },
-  get(path, params) {
+  get(path, params = {}) {
     return fetch(BASE_URL + path, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token token= + ${token()}`
+        'Authorization': `Token token=${token()}`
       },
     })
-    .then(response => response.json())
   }
 }
 

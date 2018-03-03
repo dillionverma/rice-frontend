@@ -6,7 +6,7 @@ import './LoginForm.css';
 import { login } from './LoginActions';
 const FormItem = Form.Item;
 
-class LoginForm extends React.Component {
+class LoginForm extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -31,14 +31,14 @@ class LoginForm extends React.Component {
   }
 
   handleChange = (e) => {
-    if (e.target.id == 'email') {
+    if (e.target.id === 'email') {
       this.setState({email: e.target.value})
       if (e.target.value == '') {
         this.setState({emailStatus: null})
       }
-    } else if (e.target.id == 'password') {
+    } else if (e.target.id === 'password') {
       this.setState({password: e.target.value})
-      if (e.target.value == '') {
+      if (e.target.value === '') {
         this.setState({passwordStatus: null})
       }
     }
@@ -102,10 +102,10 @@ class LoginForm extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    emailStatus: state.LoginReducer.emailStatus,
-    emailMessage: state.LoginReducer.emailMessage,
-    passwordStatus: state.LoginReducer.passwordStatus,
-    passwordMessage: state.LoginReducer.passwordMessage,
+    emailStatus: state.login.emailStatus,
+    emailMessage: state.login.emailMessage,
+    passwordStatus: state.login.passwordStatus,
+    passwordMessage: state.login.passwordMessage,
   };
 }
 

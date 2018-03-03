@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Dashboard from './features/dashboard/Dashboard';
 import Landing from './features/landing/Landing';
-import Tables from './features/restaurant/tables';
+import Tables from './features/restaurant/Tables';
 import LoginForm from './features/login/LoginForm';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 

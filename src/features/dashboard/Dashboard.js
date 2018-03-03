@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
   state = {
     collapsed: false,
   };
@@ -16,12 +16,15 @@ class Dashboard extends React.Component {
   }
 
   handleClick = (e) => {
-    switch(parseInt(e.key)) {
+    switch(parseInt(e.key, 10)) {
       case 1:
         this.props.history.push('/dashboard')
         break;
       case 10:
         this.props.history.push('/restaurant/tables')
+        break;
+      default:
+        this.props.history.push('/dashboard')
         break;
     }
   }
@@ -91,8 +94,8 @@ class Dashboard extends React.Component {
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-             {this.props.location.pathname.split('/').map((path) => 
-              <Breadcrumb.Item>{upCase(path)}</Breadcrumb.Item>
+             {this.props.location.pathname.split('/').map((path, i) => 
+              <Breadcrumb.Item key={i}>{upCase(path)}</Breadcrumb.Item>
              )}
             </Breadcrumb>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
