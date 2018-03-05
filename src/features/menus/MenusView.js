@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Tabs, Collapse, List, Avatar, Icon } from 'antd';
 import numeral from 'numeral';
+import moment from 'moment';
 
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane
+
+function format(time) {
+  return moment(time).format('h:mm a')
+}
 
 class MenusView extends Component {
   render() {
@@ -11,7 +16,7 @@ class MenusView extends Component {
       <div>
         <Tabs defaultActiveKey="0">
           {this.props.menus.map((menu, i) =>
-          <TabPane tab={menu.menu} key={i}>
+          <TabPane tab={<span>{`${menu.menu} ${format(menu.start_time)} - ${format(menu.end_time)}`}</span>} key={i}>
              <Collapse bordered={false} defaultActiveKey={['0']}>
                 {menu.menu_categories.map((category, i) =>
                   <Panel header={category.category} key={i}>
