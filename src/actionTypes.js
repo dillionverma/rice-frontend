@@ -6,6 +6,11 @@ export const LOGOUT_OWNER = 'LOGOUT_OWNER';
 
 export const GET_RESTAURANT_TABLES = 'GET_RESTAURANT_TABLES';
 
-export const GET_ORDERS = 'GET_ORDERS';
+export const GET_ORDERS         = 'GET_ORDERS';
 export const GET_ORDERS_SUCCESS = 'GET_ORDERS_SUCCESS';
 export const GET_ORDERS_FAILURE = 'GET_ORDERS_FAILURE';
+
+
+export const GET_MENUS         = 'GET_MENUS';
+export const GET_MENUS_SUCCESS = 'GET_MENUS_SUCCESS';
+export const GET_MENUS_FAILURE = 'GET_MENUS_FAILURE';

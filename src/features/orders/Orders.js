@@ -4,25 +4,12 @@ import { getOrders } from './OrderActions';
 import {
   Table,
   Divider,
-  Icon,
-  Menu,
-  Dropdown,
   Button,
   message,
   Popconfirm,
   Badge,
 } from 'antd';
 import moment from 'moment';
-
-const menu = (
-  <Menu onClick={handleMenuClick}>
-    <Menu.Item key="1">Cancel / Refund</Menu.Item>
-  </Menu>
-);
-
-const actions = () => {
-
-}
 
 function handleDeliverClick(e) {
   message.success('Successfully Delivered');

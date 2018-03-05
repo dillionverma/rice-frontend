@@ -25,6 +25,9 @@ class Dashboard extends Component {
       case 2:
         this.props.history.push('/orders')
         break;
+      case 6:
+        this.props.history.push('/menus')
+        break;
       case 10:
         this.props.history.push('/restaurant/tables')
         break;
