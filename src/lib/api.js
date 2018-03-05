@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 const BASE_URL = 'http://localhost:3000';
 
 function token() {
@@ -17,6 +19,9 @@ const api = {
     })
   },
   get(path, params = {}) {
+    if (params && Object.keys(params).length) {
+      path += `?${qs.stringify(params)}`;
+    }
     return fetch(BASE_URL + path, {
       method: 'GET',
       headers: {

@@ -3,7 +3,7 @@ import api from '../../lib/api';
 
 export function getTablesAction(json) {
   return {
-    type: GET_RESTAURANT_TABLES, 
+    type: GET_RESTAURANT_TABLES,
     tables: json.tables
   };
 }
