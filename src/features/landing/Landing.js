@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Layout, Row, Col } from 'antd';
+import { Button, Layout, Row, Col, Menu } from 'antd';
 import logo from '../../ricepay-transparent.png'
 import './Landing.css';
 const { Header, Footer, Sider, Content } = Layout;
@@ -9,7 +9,17 @@ const { Header, Footer, Sider, Content } = Layout;
 const Landing = () =>  {
     return (
     <Layout>
-      <Header id="header">
+      <Header id="header" style={{background: '#fff'}}>
+        <Menu
+          theme="light"
+          mode="horizontal"
+          defaultSelectedKeys={['1']}
+          style={{ lineHeight: '64px', float: 'right' }}
+        >
+          <Menu.Item key="3">nav 3</Menu.Item>
+          <Menu.Item key="2">nav 2</Menu.Item>
+          <Menu.Item key="1">nav 1</Menu.Item>
+        </Menu>
         <div className="container">
           <img alt="logo" id="logo" src={logo} />
         </div>
@@ -27,8 +37,7 @@ const Landing = () =>  {
               </Button>
             </Col>
           </Row>
-      </div>
-      
+        </div>
       </Content>
       <Footer>Footer</Footer>
     </Layout>

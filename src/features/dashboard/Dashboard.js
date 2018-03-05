@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Menu, Breadcrumb, Icon, Dropdown, Avatar, Button } from 'antd';
+import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
 import './Dashboard.css';
 import logo from '../../ricepay-transparent.png'
 import { withRouter } from "react-router-dom";
@@ -11,8 +12,8 @@ class Dashboard extends Component {
   state = {
     collapsed: false,
   };
-  onCollapse = (collapsed) => {
-    this.setState({ collapsed });
+  collapse = () => {
+    this.setState({ collapsed: !this.state.collapsed });
   }
 
   handleClick = (e) => {
@@ -42,9 +43,10 @@ class Dashboard extends Component {
         <Sider
           collapsible
           collapsed={this.state.collapsed}
-          onCollapse={this.onCollapse}
+          onCollapse={this.collapse}
           breakpoint={'md'}
           style={{ background: '#fff' }}
+          trigger={null}
         >
           <div className="logo">
             <img src={logo} alt={"logo"}/>
@@ -95,7 +97,25 @@ class Dashboard extends Component {
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }} />
+          <Header style={{ background: '#fff', padding: 0, textAlign: 'right' }}>
+            <Icon
+              className="trigger"
+              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={this.collapse}
+              style={{float: 'left'}}
+            />
+           <HeaderSearch
+              className="search"
+              placeholder="Search anything here"
+              dataSource={['Restaurant', 'Orders', 'Dashboard']}
+              onSearch={(value) => {
+                console.log('input', value); // eslint-disable-line
+              }}
+              onPressEnter={(value) => {
+                console.log('enter', value); // eslint-disable-line
+              }}
+            />
+          </Header>
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
              {this.props.location.pathname.split('/').map((path, i) =>
