@@ -7,13 +7,12 @@ function token() {
 }
 
 const api = {
-  post(path, params) {
+  post(path, params = {}) {
     return fetch(BASE_URL + path, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token token= + ${token()}`
-
+        'Authorization': `Token token=${token()}`
       },
       body: JSON.stringify(params),
     })

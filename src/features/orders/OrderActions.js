@@ -1,5 +1,6 @@
 import {GET_ORDERS, GET_ORDERS_SUCCESS, GET_ORDERS_FAILURE} from '../../actionTypes';
 import api from '../../lib/api';
+import { errorHandler, handleResponse } from '../../lib/errorHandler';
 
 export function getOrdersAction() {
   return {
@@ -26,16 +27,9 @@ export function getOrders(pagination) {
   return dispatch => {
     dispatch(getOrdersAction())
     return api.get('/api/v1/owner/orders', pagination)
-              .then(handleResponse)
               .then(response => response.json())
+              .then(handleResponse)
               .then(json     => dispatch(getOrdersSuccess(json)))
-              .catch(error   => console.log(error.message));
+              .catch(error   => errorHandler(error.message));
   };
-}
-
-function handleResponse(response) {
-  if (!response.ok) {
-    throw Error("Error")
-  }
-  return response;
 }
