@@ -1,5 +1,6 @@
 import {GET_MENUS, GET_MENUS_SUCCESS, GET_MENUS_FAILURE} from '../../actionTypes';
 import api from '../../lib/api';
+import { errorHandler, handleResponse } from '../../lib/errorHandler';
 
 export function getMenusAction() {
   return {
@@ -24,16 +25,9 @@ export function getMenus() {
   return dispatch => {
     dispatch(getMenusAction())
     return api.get('/api/v1/owner/menus')
-              .then(handleResponse)
               .then(response => response.json())
+              .then(handleResponse)
               .then(json     => dispatch(getMenusSuccess(json)))
-              .catch(error   => console.log(error.message));
+              .catch(error   => errorHandler(error.message));
   };
-}
-
-function handleResponse(response) {
-  if (!response.ok) {
-    throw Error(response.statusText)
-  }
-  return response;
 }
