@@ -5,6 +5,7 @@ import Dashboard from './features/dashboard/Dashboard';
 import Landing from './features/landing/Landing';
 import Tables from './features/restaurant/Tables';
 import LoginForm from './features/login/LoginForm';
+import Orders from './features/orders/Orders';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
           <Route path="/login" component={LoginForm} />
           <Dashboard>
             <Switch>
+              <Route path="/orders" component={Orders} />
               <Route path="/restaurant/tables" component={Tables} />
             </Switch>
           </Dashboard>

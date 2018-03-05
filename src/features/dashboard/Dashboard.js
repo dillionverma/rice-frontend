@@ -16,9 +16,13 @@ class Dashboard extends Component {
   }
 
   handleClick = (e) => {
+    console.log(e)
     switch(parseInt(e.key, 10)) {
       case 1:
         this.props.history.push('/dashboard')
+        break;
+      case 2:
+        this.props.history.push('/orders')
         break;
       case 10:
         this.props.history.push('/restaurant/tables')
@@ -43,7 +47,7 @@ class Dashboard extends Component {
           style={{ background: '#fff' }}
         >
           <div className="logo">
-            <img src={logo} alt={"logo"}/> 
+            <img src={logo} alt={"logo"}/>
           </div>
           <Menu theme="light" defaultSelectedKeys={['1']} onSelect={this.handleClick.bind(this)} mode="inline">
             <Menu.Item key="1">
@@ -94,7 +98,7 @@ class Dashboard extends Component {
           <Header style={{ background: '#fff', padding: 0 }} />
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-             {this.props.location.pathname.split('/').map((path, i) => 
+             {this.props.location.pathname.split('/').map((path, i) =>
               <Breadcrumb.Item key={i}>{upCase(path)}</Breadcrumb.Item>
              )}
             </Breadcrumb>
