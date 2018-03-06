@@ -1,20 +1,30 @@
-import { LOGIN_OWNER, LOGIN_OWNER_SUCCESS, LOGIN_OWNER_FAILURE } from '../../actionTypes';
+import {
+  LOGIN_OWNER,
+  LOGIN_OWNER_SUCCESS,
+  LOGIN_OWNER_FAILURE,
+  LOGOUT_OWNER,
+  AUTHENTICATE_OWNER,
+  AUTHENTICATE_OWNER_SUCCESS,
+  AUTHENTICATE_OWNER_FAILURE,
+} from '../../actionTypes';
 import api from '../../lib/api';
+import { errorHandler, handleResponse } from '../../lib/errorHandler';
 
-export function loginOwner() {
+function loginOwner() {
   return {
-    type: LOGIN_OWNER, 
-    emailStatus: 'validating', 
+    type: LOGIN_OWNER,
+    emailStatus: 'validating',
     emailMessage: null,
     passwordStatus: 'validating',
     passwordMessage: null,
   };
 }
 
-export function loginOwnerSuccess(token) {
+function loginOwnerSuccess(token) {
   return {
-    type: LOGIN_OWNER_SUCCESS, 
-    emailStatus: 'success', 
+    type: LOGIN_OWNER_SUCCESS,
+    status: true,
+    emailStatus: 'success',
     emailMessage: null,
     passwordStatus: 'success',
     passwordMessage: null,
@@ -22,24 +32,74 @@ export function loginOwnerSuccess(token) {
   };
 }
 
-export function loginOwnerFailure(error) {
-  if (error.type == 'email') {
+function loginOwnerFailure(errors) {
+  if (errors[0].detail == 'email') {
     return {
-      type: LOGIN_OWNER_FAILURE, 
-      emailStatus: 'error', 
-      emailMessage: error.message,
+      type: LOGIN_OWNER_FAILURE,
+      status: false,
+      emailStatus: 'error',
+      emailMessage: errors[0].title,
       passwordStatus: null,
       passwordMessage: null
     }
-  } else if (error.type == 'password') {
+  } else if (errors[0].detail == 'password') {
     return {
-      type: LOGIN_OWNER_FAILURE, 
+      type: LOGIN_OWNER_FAILURE,
+      status: false,
       emailStatus: null,
       emailMessage: null,
-      passwordStatus: 'error', 
-      passwordMessage: error.message
+      passwordStatus: 'error',
+      passwordMessage: errors[0].title,
     }
   }
+}
+
+function logoutOwner() {
+  return {
+    type: LOGOUT_OWNER,
+    emailStatus: null,
+    emailMessage: null,
+    passwordStatus: null,
+    passwordMessage: null,
+    status: false,
+  }
+}
+
+function authenticateOwner() {
+  return {
+    type: AUTHENTICATE_OWNER,
+  }
+}
+
+
+function authenticateOwnerSuccess(json) {
+  return {
+    type: AUTHENTICATE_OWNER_SUCCESS,
+    owner: json.owner,
+    status: true,
+  }
+}
+
+function authenticateOwnerFailure(error) {
+  return {
+    type: AUTHENTICATE_OWNER_FAILURE,
+    error: error,
+    status: false,
+  }
+}
+
+export function authenticate() {
+  return dispatch => {
+    dispatch(authenticateOwner())
+    return api.get('/api/v1/owner/authenticate')
+              .then(response => response.json())
+              .then(handleResponse)
+              .then(json     => dispatch(authenticateOwnerSuccess(json)))
+              .catch(error   => {
+                dispatch(authenticateOwnerFailure(JSON.parse(error.message)))
+                errorHandler(error.message)
+              });
+  };
 }
 
 export function login(email, password) {
@@ -50,13 +110,13 @@ export function login(email, password) {
               .then(response => response.json())
               .then(handleResponse)
               .then(json     => dispatch(loginOwnerSuccess(json.token)))
-              .catch(error   => dispatch(loginOwnerFailure(JSON.parse(error.message))));
+              .catch(error   => {
+                dispatch(loginOwnerFailure(JSON.parse(error.message)))
+                errorHandler(error.message)
+              });
   };
 }
 
-function handleResponse(response) {
-  if (response.error) {
-    throw Error(JSON.stringify({message: response.error, type: response.type }))
-  }
-  return response;
+export function logout() {
+  return dispatch => dispatch(logoutOwner());
 }

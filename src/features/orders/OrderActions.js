@@ -30,6 +30,9 @@ export function getOrders(pagination) {
               .then(response => response.json())
               .then(handleResponse)
               .then(json     => dispatch(getOrdersSuccess(json)))
-              .catch(error   => errorHandler(error.message));
+              .catch(error   => {
+                dispatch(getOrdersFailure(JSON.parse(error.message)))
+                errorHandler(error.message)
+              });
   };
 }
