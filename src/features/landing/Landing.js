@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Layout, Row, Col, Menu } from 'antd';
 import logo from '../../ricepay-transparent.png'
 import './Landing.css';
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 
 
 const Landing = () =>  {

@@ -56,5 +56,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)
-(Tables);
+  mapDispatchToProps
+)(Tables);

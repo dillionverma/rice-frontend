@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
-import { Redirect } from 'react-router-dom'
 import { authenticate } from './LoginActions';
 import { Spin } from 'antd';
 
 class LoggedIn extends Component {
   componentWillMount() {
-    if (this.props.status == false) {
+    if (this.props.status === false) {
       this.props.authenticate()
     }
   }
 
   componentWillReceiveProps(nextProps) {
     console.log('next', nextProps)
-    if (nextProps.status == false) {
+    if (nextProps.status === false) {
       this.props.history.push('/')
     }
   }
@@ -45,5 +44,5 @@ function mapDispatchToProps(dispatch) {
 }
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)
-(withRouter(LoggedIn));
+  mapDispatchToProps
+)(withRouter(LoggedIn));

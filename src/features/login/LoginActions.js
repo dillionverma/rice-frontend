@@ -33,7 +33,7 @@ function loginOwnerSuccess(token) {
 }
 
 function loginOwnerFailure(errors) {
-  if (errors[0].detail == 'email') {
+  if (errors[0].detail === 'email') {
     return {
       type: LOGIN_OWNER_FAILURE,
       status: false,
@@ -42,7 +42,7 @@ function loginOwnerFailure(errors) {
       passwordStatus: null,
       passwordMessage: null
     }
-  } else if (errors[0].detail == 'password') {
+  } else if (errors[0].detail === 'password') {
     return {
       type: LOGIN_OWNER_FAILURE,
       status: false,

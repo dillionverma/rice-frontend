@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tabs, Collapse, List, Avatar, Icon } from 'antd';
+import { Tabs, Collapse, List } from 'antd';
 import numeral from 'numeral';
 import moment from 'moment';
 
@@ -32,7 +32,7 @@ class MenusView extends Component {
                           extra={<img width={80} alt={item.name} src={item.image_url} />}
                         >
                           <List.Item.Meta
-                            title={<a href="#">{item.name}</a>}
+                            title={<a href="">{item.name}</a>}
                             description={item.description}
                           />
                         </List.Item>

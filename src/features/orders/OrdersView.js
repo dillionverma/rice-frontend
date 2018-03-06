@@ -19,10 +19,10 @@ function handleRefundClick(e) {
   console.log('click left button', e);
 }
 
-function handleMenuClick(e) {
-  //message.info('Click on menu item.');
-  console.log('click', e);
-}
+//function handleMenuClick(e) {
+  ////message.info('Click on menu item.');
+  //console.log('click', e);
+//}
 
 function refund() {
   message.success('Successfully Refunded')
@@ -41,13 +41,12 @@ function status(text) {
   switch(text) {
     case 'ordered':
       return statusComp(text, 'processing')
-      break;
     case 'paid':
       return statusComp(text, 'success')
-      break;
     case 'cancelled':
       return statusComp(text, 'error')
-      break;
+    default:
+      return null
   }
 }
 

@@ -34,7 +34,7 @@ class LoginForm extends Component {
   handleChange = (e) => {
     if (e.target.id === 'email') {
       this.setState({email: e.target.value})
-      if (e.target.value == '') {
+      if (e.target.value === '') {
         this.setState({emailStatus: null})
       }
     } else if (e.target.id === 'password') {
@@ -46,7 +46,7 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    if (this.props.status == true) {
+    if (this.props.status === true) {
       this.props.history.push('/dashboard')
     }
   }
@@ -59,7 +59,7 @@ class LoginForm extends Component {
       passwordMessage: nextProps.passwordMessage,
       passwordStatus:  nextProps.passwordStatus,
     })
-    if (nextProps.status == true) {
+    if (nextProps.status === true) {
       this.props.history.push('/dashboard')
       message.success('Successfully logged in')
     }
