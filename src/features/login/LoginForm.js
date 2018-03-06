@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { withRouter } from 'react-router-dom';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import './LoginForm.css';
 import { login } from './LoginActions';
 const FormItem = Form.Item;
@@ -44,13 +45,24 @@ class LoginForm extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.status == true) {
+      this.props.history.push('/dashboard')
+    }
+  }
+
   componentWillReceiveProps(nextProps){
     this.setState({
+      status:          nextProps.status,
       emailMessage:    nextProps.emailMessage,
       emailStatus:     nextProps.emailStatus,
       passwordMessage: nextProps.passwordMessage,
       passwordStatus:  nextProps.passwordStatus,
     })
+    if (nextProps.status == true) {
+      this.props.history.push('/dashboard')
+      message.success('Successfully logged in')
+    }
   }
 
   render() {
@@ -102,6 +114,7 @@ class LoginForm extends Component {
 
 function mapStateToProps(state) {
   return {
+    status: state.login.status,
     emailStatus: state.login.emailStatus,
     emailMessage: state.login.emailMessage,
     passwordStatus: state.login.passwordStatus,
@@ -118,4 +131,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Form.create()(LoginForm));
+)(withRouter(Form.create()(LoginForm)));

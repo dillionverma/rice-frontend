@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb, Icon, Dropdown, Avatar, Button } from 'antd';
-import HeaderSearch from 'ant-design-pro/lib/HeaderSearch';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Layout, Breadcrumb } from 'antd';
 import './Dashboard.css';
-import logo from '../../ricepay-transparent.png'
-import { withRouter } from "react-router-dom";
+import Sidebar from './Sidebar';
+import Header from './Header';
+import { logout } from '../login/LoginActions';
 
-const { Header, Content, Footer, Sider } = Layout;
-const SubMenu = Menu.SubMenu;
+const { Content, Footer} = Layout;
 
 class Dashboard extends Component {
   state = {
@@ -16,109 +17,22 @@ class Dashboard extends Component {
     this.setState({ collapsed: !this.state.collapsed });
   }
 
-  handleClick = (e) => {
-    console.log(e)
-    switch(parseInt(e.key, 10)) {
-      case 1:
-        this.props.history.push('/dashboard')
-        break;
-      case 2:
-        this.props.history.push('/orders')
-        break;
-      case 6:
-        this.props.history.push('/menus')
-        break;
-      case 10:
-        this.props.history.push('/restaurant/tables')
-        break;
-      default:
-        this.props.history.push('/dashboard')
-        break;
-    }
-  }
-
   render() {
     function upCase(string){
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider
-          collapsible
+        <Sidebar 
+          logout={this.props.logout}
           collapsed={this.state.collapsed}
-          onCollapse={this.collapse}
-          breakpoint={'md'}
-          style={{ background: '#fff' }}
-          trigger={null}
-        >
-          <div className="logo">
-            <img src={logo} alt={"logo"}/>
-          </div>
-          <Menu theme="light" defaultSelectedKeys={['1']} onSelect={this.handleClick.bind(this)} mode="inline">
-            <Menu.Item key="1">
-              <Icon type="home" />
-              <span>Home</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="bars" />
-              <span>Orders</span>
-            </Menu.Item>
-            <SubMenu
-              key="sub1"
-              title={<span><Icon type="area-chart" /><span>Reports</span></span>}
-            >
-              <Menu.Item key="3">Overview</Menu.Item>
-              <Menu.Item key="4">Order History</Menu.Item>
-              <Menu.Item key="5">Refunds / Disputes</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={<span><Icon type="profile" /><span>Menu</span></span>}
-            >
-              <Menu.Item key="6">Overview</Menu.Item>
-              <Menu.Item key="7">Add Menu</Menu.Item>
-              <Menu.Item key="8">Add Menu Category</Menu.Item>
-              <Menu.Item key="9">Add Menu Item</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub3"
-              title={<span><Icon type="shopping-cart" /><span>Restaurant</span></span>}
-            >
-              <Menu.Item key="10">Tables</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub4"
-              title={<span><Icon type="setting" /><span>Settings</span></span>}
-            >
-              <Menu.Item key="11">General</Menu.Item>
-              <Menu.Item key="12">Edit Profile</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="13">
-              <Icon type="logout" />
-              <span>Logout</span>
-            </Menu.Item>
-          </Menu>
-        </Sider>
+          collapse={this.collapse}
+        />
         <Layout>
-          <Header style={{ background: '#fff', padding: 0, textAlign: 'right' }}>
-            <Icon
-              className="trigger"
-              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.collapse}
-              style={{float: 'left'}}
-            />
-           <HeaderSearch
-              className="search"
-              placeholder="Search anything here"
-              dataSource={['Restaurant', 'Orders', 'Dashboard']}
-              onSearch={(value) => {
-                console.log('input', value); // eslint-disable-line
-              }}
-              onPressEnter={(value) => {
-                console.log('enter', value); // eslint-disable-line
-              }}
-            />
-          </Header>
+          <Header
+            collapsed={this.state.collapsed}
+            collapse={this.collapse}
+          />
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
              {this.props.location.pathname.split('/').map((path, i) =>
@@ -138,4 +52,18 @@ class Dashboard extends Component {
   }
 }
 
-export default withRouter(Dashboard);
+function mapStateToProps(state) {
+  return {
+    status: state.login.status
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    logout: () => { dispatch(logout()) }
+  }
+}
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Dashboard));

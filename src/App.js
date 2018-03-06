@@ -4,6 +4,7 @@ import Dashboard from './features/dashboard/Dashboard';
 import Landing   from './features/landing/Landing';
 import Tables    from './features/restaurant/Tables';
 import LoginForm from './features/login/LoginForm';
+import LoggedIn  from './features/login/LoggedIn';
 import Orders    from './features/orders/Orders';
 import Menus     from './features/menus/Menus';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -15,13 +16,15 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={Landing}/>
           <Route path="/login" component={LoginForm} />
-          <Dashboard>
-            <Switch>
-              <Route path="/menus" component={Menus} />
-              <Route path="/orders" component={Orders} />
-              <Route path="/restaurant/tables" component={Tables} />
-            </Switch>
-          </Dashboard>
+          <LoggedIn>
+            <Dashboard>
+              <Switch>
+                <Route path="/menus" component={Menus} />
+                <Route path="/orders" component={Orders} />
+                <Route path="/restaurant/tables" component={Tables} />
+              </Switch>
+            </Dashboard>
+          </LoggedIn>
         </Switch>
       </Router>
     );
