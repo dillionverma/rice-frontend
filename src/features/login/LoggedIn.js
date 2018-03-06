@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router'
 import { authenticate } from './LoginActions';
-import { Spin } from 'antd';
 
 class LoggedIn extends Component {
   componentWillMount() {
     if (this.props.status === false) {
       this.props.authenticate()
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('next', nextProps)
-    if (nextProps.status === false) {
-      this.props.history.push('/')
     }
   }
 
@@ -24,7 +17,7 @@ class LoggedIn extends Component {
         location: this.props.history.location,
       });
     } else {
-      return <Spin/>
+      return <Redirect to="/"/>
     }
   }
 }
