@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Dashboard from './features/dashboard/Dashboard';
+import AppFrame from './features/appFrame/AppFrame';
 import Landing   from './features/landing/Landing';
+import Dashboard   from './features/dashboard/Dashboard';
 import Tables    from './features/restaurant/Tables';
 import LoginForm from './features/login/LoginForm';
 import LoggedIn  from './features/login/LoggedIn';
@@ -17,13 +18,14 @@ class App extends Component {
           <Route exact path='/' component={Landing}/>
           <Route path="/login" component={LoginForm} />
           <LoggedIn>
-            <Dashboard>
+            <AppFrame>
               <Switch>
-                <Route path="/menus" component={Menus} />
-                <Route path="/orders" component={Orders} />
+                <Route path="/dashboard"         component={Dashboard} />
+                <Route path="/menus"             component={Menus} />
+                <Route path="/orders"            component={Orders} />
                 <Route path="/restaurant/tables" component={Tables} />
               </Switch>
-            </Dashboard>
+            </AppFrame>
           </LoggedIn>
         </Switch>
       </Router>
