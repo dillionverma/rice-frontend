@@ -6,7 +6,7 @@ import './Tables.css';
 import { Card, Icon, message, Button } from 'antd';
 
 const gridStyle = {
-  width: '25%',
+  width: '20%',
   textAlign: 'center',
 };
 
@@ -40,7 +40,7 @@ class Tables extends Component {
         <Card title="Tables">
           { this.state.tables ? this.state.tables.map((table, i) =>
           <Card.Grid key={i} style={gridStyle}>
-            <QRCode value={`${table.id}`} />
+            <QRCode size={64} value={`${table.id}`} />
             <Card.Meta style={{marginTop: '10px' }} description={`${table.number}`}/>
           </Card.Grid>
           ) :
