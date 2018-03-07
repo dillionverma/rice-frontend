@@ -56,11 +56,11 @@ class Orders extends Component {
   render() {
     return(
       <div>
-        <OrdersView 
-          orders={this.state.orders} 
+        <OrdersView
+          orders={this.state.orders}
           pagination={this.state.pagination}
           loading={this.state.loading}
-          onChange={this.handleTableChange}
+          handleTableChange={this.handleTableChange}
         />
       </div>
     )
