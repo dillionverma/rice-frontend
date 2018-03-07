@@ -1,32 +1,37 @@
-import qs from 'qs';
+import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3000';
+
+var HEADERS = {
+  'Content-Type': 'application/json',
+  'Authorization': auth()
+};
 
 function token() {
   return localStorage.getItem('token')
 }
 
+function auth() {
+  return {'Authorization': `Token token=${token()}`}
+}
+
 const api = {
-  post(path, params = {}) {
-    return fetch(BASE_URL + path, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token token=${token()}`
-      },
-      body: JSON.stringify(params),
+  post(path, body = {}) {
+    return axios({
+      baseURL:  API_URL,
+      headers:  auth(),
+      url:      path,
+      method:  'POST',
+      data:     body,
     })
   },
   get(path, params = {}) {
-    if (params && Object.keys(params).length) {
-      path += `?${qs.stringify(params)}`;
-    }
-    return fetch(BASE_URL + path, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token token=${token()}`
-      },
+    return axios({
+      baseURL:  API_URL,
+      headers:  auth(),
+      url:      path,
+      method:  'GET',
+      params:   params,
     })
   }
 }

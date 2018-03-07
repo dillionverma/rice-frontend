@@ -8,7 +8,7 @@ import {
   AUTHENTICATE_OWNER_FAILURE,
 } from '../../actionTypes';
 import api from '../../lib/api';
-import { errorHandler, handleResponse } from '../../lib/errorHandler';
+import { errorHandler } from '../../lib/errorHandler';
 
 function loginOwner() {
   return {
@@ -72,10 +72,10 @@ function authenticateOwner() {
 }
 
 
-function authenticateOwnerSuccess(json) {
+function authenticateOwnerSuccess(owner) {
   return {
     type: AUTHENTICATE_OWNER_SUCCESS,
-    owner: json.owner,
+    owner: owner,
     status: true,
   }
 }
@@ -92,12 +92,10 @@ export function authenticate() {
   return dispatch => {
     dispatch(authenticateOwner())
     return api.get('/api/v1/owner/authenticate')
-              .then(response => response.json())
-              .then(handleResponse)
-              .then(json     => dispatch(authenticateOwnerSuccess(json)))
-              .catch(error   => {
-                dispatch(authenticateOwnerFailure(JSON.parse(error.message)))
-                errorHandler(error.message)
+              .then( ({data})  => dispatch(authenticateOwnerSuccess(data.owner)))
+              .catch(error     => {
+                dispatch(authenticateOwnerFailure(error.response.data.errors))
+                errorHandler(error)
               });
   };
 }
@@ -107,12 +105,10 @@ export function login(email, password) {
   return dispatch => {
     dispatch(loginOwner())
     return api.post('/api/v1/owner/login', params)
-              .then(response => response.json())
-              .then(handleResponse)
-              .then(json     => dispatch(loginOwnerSuccess(json.token)))
-              .catch(error   => {
-                dispatch(loginOwnerFailure(JSON.parse(error.message)))
-                errorHandler(error.message)
+              .then(({data}) => dispatch(loginOwnerSuccess(data.token)))
+              .catch(error  => {
+                dispatch(loginOwnerFailure(error.response.data.errors))
+                errorHandler(error)
               });
   };
 }
