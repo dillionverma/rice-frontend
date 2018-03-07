@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { getTables } from './RestaurantActions';
+import { getTables, createTable } from './RestaurantActions';
 import QRCode from 'qrcode.react';
-import { Card } from 'antd';
+import './Tables.css';
+import { Card, Icon, message, Button } from 'antd';
 
 const gridStyle = {
+  width: '25%',
   textAlign: 'center',
 };
 
 class Tables extends Component {
   state = {
-    tables: []
+    tables: [],
+    count: 0,
   }
 
   componentDidMount() {
@@ -19,17 +22,26 @@ class Tables extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({tables: nextProps.tables});
+    if (nextProps.tables.length == this.state.count + 1) {
+      message.success('Table successfully created!')
+    }
+    this.setState({
+      tables: nextProps.tables,
+      count: nextProps.tables.length
+    });
   }
 
   render() {
     return (
       <div>
+        <div className="button-row">
+          <Button onClick={() => this.props.createTable()} type="primary" icon="plus" size="large">New</Button>
+        </div>
         <Card title="Tables">
           { this.state.tables ? this.state.tables.map((table, i) =>
           <Card.Grid key={i} style={gridStyle}>
             <QRCode value={`${table.id}`} />
-            <Card.Meta style={{marginTop: '10px' }} description={table.id}/>
+            <Card.Meta style={{marginTop: '10px' }} description={`${table.number}`}/>
           </Card.Grid>
           ) :
           <Card loading style={gridStyle}/>
@@ -50,7 +62,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTables: () => { dispatch(getTables()) }
+    getTables:   () => { dispatch(getTables())   },
+    createTable: () => { dispatch(createTable()) }
   };
 }
 
