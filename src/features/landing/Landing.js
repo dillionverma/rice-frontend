@@ -194,7 +194,7 @@ const Landing = () =>  {
             <div className="container flex wrap text-center">
               <div className="col-6 mt40 flex">
                 <div className="team-card flex flex-column center-vertical center-horizontal w100">
-                  <div className="user-image mb20"></div>
+                  <div id="dillion-img" className="user-image mb20"></div>
                   <div>
                     <b className="bold primary-color">Dillion Verma</b>
                     <p className="paragraph primary-color mt10">Co-Founder</p>
@@ -205,7 +205,7 @@ const Landing = () =>  {
               </div>
               <div className="col-6 mt40 flex">
                 <div className="team-card flex flex-column center-vertical center-horizontal w100">
-                  <div className="user-image mb20"></div>
+                  <div id="marc-img" className="user-image mb20"></div>
                   <div >
                     <b className="bold primary-color">Marc LI</b>
                     <p className="paragraph primary-color mt10">Co-Founder</p>
