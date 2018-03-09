@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import { withRouter } from 'react-router-dom';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import './LoginForm.css';
-import { login } from './LoginActions';
+import { login } from './SessionActions';
 const FormItem = Form.Item;
 
 class LoginForm extends Component {
@@ -46,7 +46,7 @@ class LoginForm extends Component {
   }
 
   componentDidMount() {
-    if (this.props.status === true) {
+    if (this.props.isLoggedIn) {
       this.props.history.push('/dashboard')
     }
   }
@@ -59,7 +59,7 @@ class LoginForm extends Component {
       passwordMessage: nextProps.passwordMessage,
       passwordStatus:  nextProps.passwordStatus,
     })
-    if (nextProps.status === true) {
+    if (nextProps.isLoggedIn) {
       this.props.history.push('/dashboard')
       message.success('Successfully logged in')
     }
@@ -114,11 +114,12 @@ class LoginForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    status: state.login.status,
-    emailStatus: state.login.emailStatus,
-    emailMessage: state.login.emailMessage,
-    passwordStatus: state.login.passwordStatus,
-    passwordMessage: state.login.passwordMessage,
+    isLoggedIn:       state.session.isLoggedIn,
+    isAuthenticating: state.session.isAuthenticating,
+    emailStatus:      state.session.emailStatus,
+    emailMessage:     state.session.emailMessage,
+    passwordStatus:   state.session.passwordStatus,
+    passwordMessage:  state.session.passwordMessage,
   };
 }
 

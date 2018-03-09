@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Redirect } from 'react-router'
-import { authenticate } from './LoginActions';
+import { authenticate } from './SessionActions';
 import { Spin, Icon } from 'antd';
 
 class LoggedIn extends Component {
   componentWillMount() {
-    if (this.props.status === false) {
+    if (!this.props.isLoggedIn) {
       this.props.authenticate()
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.status === false) {
+    if (!nextProps.isLoggedIn && !nextProps.isAuthenticating) {
       this.props.history.push('/')
     }
   }
@@ -26,7 +25,7 @@ class LoggedIn extends Component {
       justifyContent: 'center',
       alignItems: 'center'
     }
-    if (this.props.status) {
+    if (this.props.isLoggedIn && !this.props.isAuthenticating) {
       return React.cloneElement(React.Children.only(this.props.children), {
         location: this.props.history.location,
       });
@@ -39,8 +38,8 @@ class LoggedIn extends Component {
 
 function mapStateToProps(state) {
   return {
-    status: state.login.status,
-    error: state.login.error
+    isLoggedIn:       state.session.isLoggedIn,
+    isAuthenticating: state.session.isAuthenticating,
   }
 }
 

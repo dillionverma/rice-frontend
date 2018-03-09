@@ -8,14 +8,15 @@ import {
   AUTHENTICATE_OWNER_FAILURE,
 } from '../../actionTypes';
 
-export default function LoginReducer(state = {status: false}, action) {
+export default function SessionReducer(state = {status: false}, action) {
   let newState;
   let res = {
-    status:          action.status,
-    emailStatus:     action.emailStatus,
-    passwordStatus:  action.passwordStatus,
-    emailMessage:    action.emailMessage,
-    passwordMessage: action.passwordMessage
+    isLoggedIn:       action.isLoggedIn,
+    isAuthenticating: action.isAuthenticating,
+    emailStatus:      action.emailStatus,
+    passwordStatus:   action.passwordStatus,
+    emailMessage:     action.emailMessage,
+    passwordMessage:  action.passwordMessage
   };
 
   switch (action.type) {
@@ -54,20 +55,24 @@ export default function LoginReducer(state = {status: false}, action) {
       return newState;
     case AUTHENTICATE_OWNER:
       console.log('AUTHENTICATE_OWNER Action')
-      return state;
+      newState = Object.assign({}, {
+        ...state,
+        ...res,
+      });
+      return newState;
     case AUTHENTICATE_OWNER_SUCCESS:
       console.log('AUTHENTICATE_OWNER_SUCCESS ', action.owner)
       newState = Object.assign({}, {
         ...state,
+        ...res,
         owner: action.owner,
-        status: action.status,
       });
       return newState;
     case AUTHENTICATE_OWNER_FAILURE:
       console.log('AUTHENTICATE_OWNER_FAILURE ', action.error)
       newState = Object.assign({}, {
         ...state,
-        status: action.status,
+        ...res,
         error: action.error
       });
       return newState;

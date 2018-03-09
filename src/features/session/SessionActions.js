@@ -13,6 +13,8 @@ import { errorHandler } from '../../lib/errorHandler';
 function loginOwner() {
   return {
     type: LOGIN_OWNER,
+    isLoggedIn: false,
+    isAuthenticating: true,
     emailStatus: 'validating',
     emailMessage: null,
     passwordStatus: 'validating',
@@ -23,7 +25,8 @@ function loginOwner() {
 function loginOwnerSuccess(token) {
   return {
     type: LOGIN_OWNER_SUCCESS,
-    status: true,
+    isLoggedIn: true,
+    isAuthenticating: false,
     emailStatus: 'success',
     emailMessage: null,
     passwordStatus: 'success',
@@ -36,7 +39,8 @@ function loginOwnerFailure(errors) {
   if (errors[0].detail === 'email') {
     return {
       type: LOGIN_OWNER_FAILURE,
-      status: false,
+      isLoggedIn: false,
+      isAuthenticating: false,
       emailStatus: 'error',
       emailMessage: errors[0].title,
       passwordStatus: null,
@@ -45,7 +49,8 @@ function loginOwnerFailure(errors) {
   } else if (errors[0].detail === 'password') {
     return {
       type: LOGIN_OWNER_FAILURE,
-      status: false,
+      isLoggedIn: false,
+      isAuthenticating: false,
       emailStatus: null,
       emailMessage: null,
       passwordStatus: 'error',
@@ -57,17 +62,20 @@ function loginOwnerFailure(errors) {
 function logoutOwner() {
   return {
     type: LOGOUT_OWNER,
+    isLoggedIn: false,
+    isAuthenticating: false,
     emailStatus: null,
     emailMessage: null,
     passwordStatus: null,
     passwordMessage: null,
-    status: false,
   }
 }
 
 function authenticateOwner() {
   return {
     type: AUTHENTICATE_OWNER,
+    isLoggedIn: false,
+    isAuthenticating: true,
   }
 }
 
@@ -76,7 +84,8 @@ function authenticateOwnerSuccess(owner) {
   return {
     type: AUTHENTICATE_OWNER_SUCCESS,
     owner: owner,
-    status: true,
+    isLoggedIn: true,
+    isAuthenticating: false,
   }
 }
 
@@ -84,7 +93,8 @@ function authenticateOwnerFailure(error) {
   return {
     type: AUTHENTICATE_OWNER_FAILURE,
     error: error,
-    status: false,
+    isLoggedIn: false,
+    isAuthenticating: false,
   }
 }
 

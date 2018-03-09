@@ -5,7 +5,7 @@ import { Layout, Breadcrumb } from 'antd';
 import './AppFrame.css';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import { logout } from '../login/LoginActions';
+import { logout } from '../session/SessionActions';
 
 const { Content, Footer} = Layout;
 
@@ -54,7 +54,7 @@ class AppFrame extends Component {
 
 function mapStateToProps(state) {
   return {
-    status: state.login.status
+    status: state.session.status
   }
 }
 
