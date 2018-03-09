@@ -22,13 +22,18 @@ class Tables extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.tables.length == this.state.count + 1) {
+    if (nextProps.tables && nextProps.tables.length == this.state.count + 1) {
       message.success('Table successfully created!')
+      this.setState({
+        tables: nextProps.tables,
+        count: nextProps.tables.length
+      });
+    } else if (nextProps.tables) {
+      this.setState({
+        tables: nextProps.tables,
+        count: nextProps.tables.length
+      });
     }
-    this.setState({
-      tables: nextProps.tables,
-      count: nextProps.tables.length
-    });
   }
 
   render() {

@@ -42,7 +42,7 @@ class Orders extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.orders && nextProps.orders.length) {
+    if (nextProps.orders) {
       const pagination = { ...this.state.pagination };
       pagination.total = nextProps.total;
       this.setState({

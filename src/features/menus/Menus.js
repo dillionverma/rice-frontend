@@ -26,7 +26,11 @@ class Menus extends Component {
     console.log(this.state.menus)
     return(
       <div>
-        <MenusView menus={this.state.menus} />
+        { this.state.menus.length ?
+          <MenusView menus={this.state.menus} />
+         :
+          <p>No Data</p>
+        }
       </div>
     )
   }
