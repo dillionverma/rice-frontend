@@ -43,16 +43,12 @@ function loginOwnerFailure(errors) {
       isAuthenticating: false,
       emailStatus: 'error',
       emailMessage: errors[0].title,
-      passwordStatus: null,
-      passwordMessage: null
     }
   } else if (errors[0].detail === 'password') {
     return {
       type: LOGIN_OWNER_FAILURE,
       isLoggedIn: false,
       isAuthenticating: false,
-      emailStatus: null,
-      emailMessage: null,
       passwordStatus: 'error',
       passwordMessage: errors[0].title,
     }

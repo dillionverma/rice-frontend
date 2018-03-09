@@ -8,7 +8,16 @@ import {
   AUTHENTICATE_OWNER_FAILURE,
 } from '../../actionTypes';
 
-export default function SessionReducer(state = {status: false}, action) {
+const INITIAL_STATE = {
+  isLoggedIn:       false,
+  isAuthenticating: false,
+  emailStatus:      null,
+  passwordStatus:   null,
+  emailMessage:     null,
+  passwordMessage:  null,
+}
+
+export default function SessionReducer(state = {}, action) {
   let newState;
   let res = {
     isLoggedIn:       action.isLoggedIn,

@@ -78,7 +78,7 @@ class LoginForm extends Component {
             {getFieldDecorator('email', {
               rules: [{ required: true, message: 'Please input your email!', type: 'email'}],
             })(
-              <Input onChange={this.handleChange} prefix={<Icon type="email" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+              <Input onChange={this.handleChange} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
             )}
           </FormItem>
           <FormItem
@@ -104,7 +104,7 @@ class LoginForm extends Component {
             <Button type="primary" htmlType="submit" className="login-form-button">
               Log in
             </Button>
-            Or <a href="">register now!</a>
+            Or <a onClick={() => this.props.history.push('/signup')} >Sign Up</a>
           </FormItem>
         </Form>
       </div>
