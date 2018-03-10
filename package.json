@@ -23,6 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "deploy": "react-scripts build && aws s3 sync build/ s3://ricepay.io",
     "eject": "react-scripts eject"
   }
 }
