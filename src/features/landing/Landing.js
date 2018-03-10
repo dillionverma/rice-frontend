@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../rice-logo.png'
+import footerLogo from '../../ricepay-transparent.png'
 import './Landing.css';
 
 const Landing = () =>  {
@@ -11,8 +12,11 @@ const Landing = () =>  {
             <header className="header">
               <div className="container-lrg">
                 <div className="flex col-12 spread">
-                  <a className="logo"><img src={logo} style={{width: '20%'}} alt="RiceCompany Logo"/></a>
-                  <Link to="/login" className="nav-link secondary-color mr0">Login</Link>
+                  <a className="logo"><img src={logo} style={{width: '50%'}} alt="RiceCompany Logo"/></a>
+                  <div style={{margin: 'auto 0'}}>
+                    <Link to="/signup" className="nav-link secondary-color">Sign Up</Link>
+                    <Link to="/login" className="nav-link secondary-color">Login</Link>
+                  </div>
                 </div>
               </div>
             </header>
@@ -21,13 +25,13 @@ const Landing = () =>  {
                 <div className="col-6 flex flex-column center-vertical mobile-text-center mb40">
                   <h1 className="heading-lrg primary-color">Order food at restaurants with your phone</h1>
                   <div className="mt40">
-                    <a href="" target="_blank" className="button mobile-text-center mt10 mr10 primary-color mobile-text-center accent-bg fill-white">
+                    <a target="_blank" className="button mobile-text-center mt10 mr10 primary-color mobile-text-center accent-bg fill-white">
                       <svg width="15" height="18" viewBox="0 0 15 18" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.55 9.543c-.02-2.232 1.827-3.317 1.912-3.368-1.046-1.525-2.668-1.733-3.238-1.75-1.361-.143-2.682.815-3.376.815-.708 0-1.776-.8-2.927-.777-1.482.022-2.868.88-3.628 2.212-1.569 2.716-.399 6.707 1.104 8.903.752 1.075 1.63 2.275 2.78 2.233 1.126-.046 1.546-.717 2.904-.717 1.345 0 1.74.717 2.912.69 1.208-.02 1.968-1.08 2.693-2.165.87-1.232 1.218-2.446 1.232-2.508-.029-.01-2.345-.894-2.368-3.568zM10.335 2.98c.605-.757 1.019-1.786.904-2.83-.876.038-1.971.605-2.602 1.345-.558.652-1.056 1.721-.927 2.726.983.074 1.993-.496 2.625-1.24z"></path>
                       </svg>
                       <span> Get on App Store </span>
                     </a>
-                    <a href="" target="_blank" className="button mobile-text-center mt10">
+                    <a target="_blank" className="button mobile-text-center mt10">
                       <svg width="76" height="80" viewBox="0 0 76 80" xmlns="http://www.w3.org/2000/svg">
                         <path d="M6.175 79.25c1.879.334 4.098-.077 6.471-1.355l41.613-22.406-12.106-12.05L6.175 79.25zM2.083 3.555C1.044 5.034.446 7.069.446 9.576v61.031c0 2.442.566 4.436 1.553 5.902L38.69 39.991 2.083 3.555zM54.181 24.572L12.653 2.275C10.346 1.037 8.184.612 6.341.896l35.812 35.646 12.028-11.97zM58.757 53.068l12.016-6.471c6.711-3.612 6.707-9.517-.008-13.122l-12.082-6.487-13.065 13.003 13.139 13.077z"></path>
                       </svg>
@@ -145,15 +149,17 @@ const Landing = () =>  {
           <section id="testimonial-3" className="section lightblue-white font-neutral">
             <div className="container text-center">
               <div className="col-12">
-                <blockquote className="heading-sml primary-color">"This is the future... No more awkwardly waiting for 10 minutes to pay for your food. Just pay with your phone and go."</blockquote>
+                <blockquote className="heading-sml primary-color">"This is the future... No more awkwardly waiting to pay for your food. Just pay with your phone and go."</blockquote>
                 <div className="mt20">
-                  <p className="span secondary-color mb10">New York Times</p>
-                  <span className="span secondary-color">Ceo</span>
+                  <p className="span secondary-color mb10">Christophe</p>
+                  <span className="span secondary-color">Frequent restaurant goer</span>
                 </div>
               </div>
             </div>
           </section>
         </div>
+
+        {/*
         <div>
           <section className="section lightblue-flat font-neutral">
             <div className="container">
@@ -185,7 +191,7 @@ const Landing = () =>  {
             </div>
           </section>
         </div>
-        <div >
+        <div>
           <section className="section lightblue-white font-neutral">
             <div className="container text-center mb35">
               <h3 className="heading primary-color">Team</h3>
@@ -198,16 +204,21 @@ const Landing = () =>  {
                   <div>
                     <b className="bold primary-color">Dillion Verma</b>
                     <p className="paragraph primary-color mt10">Co-Founder</p>
-                    <p className="paragraph secondary-color mt20">Currently studying at the University of Waterloo. Has founded startups in the past.</p>
+                    <p className="paragraph secondary-color mt20">Extremely passionate, focused and dedicated individual who turns ideas into reality.</p>
                   </div>
-                  <div className="mt30"><a href="https://twitter.com/dillionverma" target="_blank" className="socialicons accent-bg twitter"></a><a href="https://github.com/dillionverma" target="_blank" className="socialicons accent-bg github"></a><a href="https://instagram.com/dillionverma" target="_blank" className="socialicons accent-bg instagram"></a><a href="https://linkedin.com/in/dillionverma" target="_blank" className="socialicons accent-bg linkedin"></a></div>
+                  <div className="mt30">
+                    <a href="https://twitter.com/dillionverma"     target="_blank" className="socialicons accent-bg twitter"></a>
+                    <a href="https://github.com/dillionverma"      target="_blank" className="socialicons accent-bg github"></a>
+                    <a href="https://instagram.com/dillionverma"   target="_blank" className="socialicons accent-bg instagram"></a>
+                    <a href="https://linkedin.com/in/dillionverma" target="_blank" className="socialicons accent-bg linkedin"></a>
+                  </div>
                 </div>
               </div>
               <div className="col-6 mt40 flex">
                 <div className="team-card flex flex-column center-vertical center-horizontal w100">
                   <div id="marc-img" className="user-image mb20"></div>
                   <div >
-                    <b className="bold primary-color">Marc LI</b>
+                    <b className="bold primary-color">Marc Li</b>
                     <p className="paragraph primary-color mt10">Co-Founder</p>
                     <p className="paragraph secondary-color mt20">Really awesome and cool guy.</p>
                   </div>
@@ -219,20 +230,21 @@ const Landing = () =>  {
             </div>
           </section>
         </div>
+        */}
         <div >
           <section className="section lightblue-black font-neutral">
             <div className="container text-center">
               <div className="col-12">
-                <h4 className="heading primary-color">Don't wait any longer to order your food</h4>
+                <h4 className="heading primary-color">Don't waste anymore time!</h4>
                 <p className="paragraph mt20 secondary-color">Download the app today</p>
                 <div className="mt40">
-                  <a href="" target="_blank" className="button mobile-text-center mt10 mr10 primary-color mobile-text-center accent-bg fill-white">
+                  <a target="_blank" className="button mobile-text-center mt10 mr10 primary-color mobile-text-center accent-bg fill-white">
                     <svg width="15" height="18" viewBox="0 0 15 18">
                       <path d="M12.55 9.543c-.02-2.232 1.827-3.317 1.912-3.368-1.046-1.525-2.668-1.733-3.238-1.75-1.361-.143-2.682.815-3.376.815-.708 0-1.776-.8-2.927-.777-1.482.022-2.868.88-3.628 2.212-1.569 2.716-.399 6.707 1.104 8.903.752 1.075 1.63 2.275 2.78 2.233 1.126-.046 1.546-.717 2.904-.717 1.345 0 1.74.717 2.912.69 1.208-.02 1.968-1.08 2.693-2.165.87-1.232 1.218-2.446 1.232-2.508-.029-.01-2.345-.894-2.368-3.568zM10.335 2.98c.605-.757 1.019-1.786.904-2.83-.876.038-1.971.605-2.602 1.345-.558.652-1.056 1.721-.927 2.726.983.074 1.993-.496 2.625-1.24z"></path>
                     </svg>
                     <span> Get on App Store </span>
                   </a>
-                  <a href="" target="_blank" className="button mobile-text-center mt10">
+                  <a target="_blank" className="button mobile-text-center mt10">
                     <svg width="76" height="80" viewBox="0 0 76 80">
                       <path d="M6.175 79.25c1.879.334 4.098-.077 6.471-1.355l41.613-22.406-12.106-12.05L6.175 79.25zM2.083 3.555C1.044 5.034.446 7.069.446 9.576v61.031c0 2.442.566 4.436 1.553 5.902L38.69 39.991 2.083 3.555zM54.181 24.572L12.653 2.275C10.346 1.037 8.184.612 6.341.896l35.812 35.646 12.028-11.97zM58.757 53.068l12.016-6.471c6.711-3.612 6.707-9.517-.008-13.122l-12.082-6.487-13.065 13.003 13.139 13.077z"></path>
                     </svg>
@@ -244,14 +256,40 @@ const Landing = () =>  {
           </section>
         </div>
         <div>
-          <footer className="section text-center lightblue-white font-neutral">
-            <div className="container col-12">
-              <div>
-                <a href="https://twitter.com/dillionverma" target="_blank" className="socialicons accent-bg twitter"></a>
-                <a href="https://facebook.com/dillionverma" target="_blank" className="socialicons accent-bg facebook"></a>
-                <a href="mailto:dillionverma@hotmail.com" target="_blank" className="socialicons accent-bg email"></a>
+          <footer id="footer" className="section lightblue-white font-neutral">
+            <div style={{display: 'flex', margin: '20px 0', flexWrap: 'wrap'}} className="secondary-color">
+              <div className="text-center col-3">
+                <a className="logo"><img src={footerLogo} style={{width: '30%'}} alt="RiceCompany Logo"/></a>
               </div>
-              <div className="mt50"><span className="span secondary-color">©</span> <span className="span secondary-color">Rice 2018</span></div>
+              <div className="footer-col col-3">
+                <h2>Products</h2>
+                <ul>
+                  <li><a>Android App</a></li>
+                  <li><a>iOS App</a></li>
+                  <li><a>Restaurant Dashboard</a></li>
+                </ul>
+              </div>
+              <div className="footer-col col-3">
+                <h2>Company</h2>
+                <ul>
+                  <li><a>About</a></li>
+                  <li><a>Our Clients</a></li>
+                  <li><a>Careers</a></li>
+                  <li><a>Blog</a></li>
+                  <li><a>Press</a></li>
+                </ul>
+              </div>
+              <div className="footer-col col-3">
+                <h2>Resources</h2>
+                <ul>
+                  <li><a>Support</a></li>
+                  <li><a>Contact</a></li>
+                  <li><a>Privacy & Terms</a></li>
+                </ul>
+              </div>
+              <div className="text-center col-3">
+                <span className="span secondary-color">©</span> <span className="span secondary-color">Rice 2018</span>
+              </div>
             </div>
           </footer>
         </div>
