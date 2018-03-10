@@ -1312,7 +1312,7 @@ img {
 .iphoneandroid-iphone .mask {
 	box-shadow: 0 0 4px rgba(107, 124, 147, .3);
 	width: 210px;
-	min-height: 350px;
+	/*min-height: 350px;*/
 	max-height: 560px
 }
 
@@ -1355,6 +1355,7 @@ img {
 	height: 440px;
 	min-width: 250px;
 	max-width: 270px;
+  max-height: 435px;
 	border-radius: 10px
 }
 

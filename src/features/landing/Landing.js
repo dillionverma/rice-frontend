@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../rice-logo.png'
 import footerLogo from '../../ricepay-transparent.png'
+import qrScreenshot from '../../images/qr-screenshot.jpg'
+import menuScreenshot from '../../images/menu-screenshot.jpg'
+import checkoutScreenshot from '../../images/checkout-screenshot.jpg'
 import './Landing.css';
 import 'animate.css';
 import WOW from 'wowjs';
@@ -54,10 +57,10 @@ class Landing extends Component {
                 <div className="col-6 flex center-vertical wow fadeInUp" data-wow-duration="1.5s">
                   <div className="iphoneandroid noshrink">
                     <div className="iphoneandroid-android">
-                      <div className="mask mask__noimage"><img alt="" className="mask-img"/></div>
+                      <div className="mask mask__noimage"><img src={checkoutScreenshot} alt="" className="mask-img"/></div>
                     </div>
                     <div className="iphoneandroid-iphone">
-                      <div className="mask mask__noimage"><img alt="" className="mask-img"/></div>
+                      <div className="mask mask__noimage"><img src={menuScreenshot} alt="" className="mask-img"/></div>
                     </div>
                   </div>
                 </div>
@@ -105,7 +108,7 @@ class Landing extends Component {
               </div>
               <div className="col-6 flex center-horizontal center-vertical wow zoomIn" data-wow-offset="400">
                 <div className="android2">
-                  <div className="mask mask__noimage"><img alt="" className="mask-img"/></div>
+                  <div className="mask mask__noimage"><img src={qrScreenshot} alt="Qrcode Rice" className="mask-img"/></div>
                 </div>
               </div>
             </div>
@@ -116,7 +119,7 @@ class Landing extends Component {
             <div className="container text-center mb75">
               <div className="col-12 wow fadeInUp">
                 <h3 className="heading primary-color">Features</h3>
-                <p className="subheading secondary-color mt20">The benefits of Rice</p>
+                <p className="subheading secondary-color mt20">The benefits of rice</p>
               </div>
             </div>
             <div className="container flex">
