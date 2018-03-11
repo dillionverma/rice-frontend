@@ -7,6 +7,8 @@ import {
   Badge,
   Steps,
   Popover,
+  Table,
+  Icon,
   Row,
   Col,
 } from 'antd';
@@ -17,11 +19,6 @@ import moment from 'moment';
 
 const Step = Steps.Step;
 
-const customDot = (dot, { status, index }) => (
-  <Popover content={<span>status: {status}</span>}>
-    {dot}
-  </Popover>
-);
 
 function handleDeliverClick(e) {
   message.success('Successfully Delivered');
@@ -42,7 +39,6 @@ function refund() {
   message.success('Successfully Refunded')
 }
 
-
 function stepProps(status) {
   switch(status) {
     case 'ordered':
@@ -62,7 +58,7 @@ function statusComp(text, status) {
   return (
     <div>
       <Badge status={status}/>
-      <span style={{marginRight: '4px'}}>{text}</span>
+      <span>{text}</span>
     </div>
   )
 }
@@ -81,6 +77,46 @@ function status(text) {
       return null
   }
 }
+
+const columns = [
+  {
+    title: 'Number',
+    dataIndex: 'id',
+    width: '10%',
+  },
+  {
+    title: 'Item',
+    dataIndex: 'name',
+    width: '20%',
+  },
+  {
+    title: 'Quantity',
+    dataIndex: 'quantity',
+    width: '10%',
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    width: '10%',
+    render: cents => `$${cents/100}`
+  },
+  {
+    title: 'Instructions',
+    dataIndex: 'instructions',
+  },
+  {
+    title: 'Action',
+    width: '12%',
+    render: (record) => (
+      <div>
+        <Button onClick={handleDeliverClick}>
+          Deliver
+        </Button>
+      </div>
+    ),
+  }
+];
+
 
 class Order extends Component {
 
@@ -140,7 +176,13 @@ class Order extends Component {
           </div>
           <Divider/>
           <div className="order-section order-steps">
-
+            <Table
+              size="middle"
+              columns={columns}
+              dataSource={order.order_items}
+              pagination={false}
+              rowKey={order => order.id}
+            />
           </div>
         </div>
         }

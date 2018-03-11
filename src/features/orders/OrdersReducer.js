@@ -29,20 +29,17 @@ export default function OrdersReducer(state = {}, action) {
       });
       return newState;
     case GET_ORDER:
-      console.log('GET_ORDER Action')
       newState = Object.assign({}, {
         ...state,
       });
       return newState;
     case GET_ORDER_SUCCESS:
-      console.log('GET_ORDER_SUCCESS ', action.order)
       newState = Object.assign({}, {
         ...state,
         order: action.order,
       });
       return newState;
     case GET_ORDER_FAILURE:
-      console.log('GET_ORDER_FAILURE ', action.message)
       newState = Object.assign({}, {
         ...state,
       });
