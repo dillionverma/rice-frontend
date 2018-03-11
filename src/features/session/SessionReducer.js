@@ -30,14 +30,12 @@ export default function SessionReducer(state = {}, action) {
 
   switch (action.type) {
     case LOGIN_OWNER:
-      console.log('LOGIN_OWNER Action')
       newState = Object.assign({}, {
         ...state,
         ...res,
       });
       return newState;
     case LOGIN_OWNER_SUCCESS:
-      console.log('LOGIN_OWNER_SUCCESS ', action.token)
       localStorage.setItem('token', action.token)
       newState = Object.assign({}, {
         ...state,
@@ -47,7 +45,6 @@ export default function SessionReducer(state = {}, action) {
       });
       return newState;
     case LOGIN_OWNER_FAILURE:
-      console.log('LOGIN_OWNER_FAILURE ', action.error)
       localStorage.removeItem('token')
       newState = Object.assign({}, {
         ...state,
@@ -56,21 +53,18 @@ export default function SessionReducer(state = {}, action) {
       return newState;
     case LOGOUT_OWNER:
       console.log('LOGOUT_OWNER')
-      localStorage.removeItem('token')
       newState = Object.assign({}, {
         ...state,
         ...res,
       });
       return newState;
     case AUTHENTICATE_OWNER:
-      console.log('AUTHENTICATE_OWNER Action')
       newState = Object.assign({}, {
         ...state,
         ...res,
       });
       return newState;
     case AUTHENTICATE_OWNER_SUCCESS:
-      console.log('AUTHENTICATE_OWNER_SUCCESS ', action.owner)
       newState = Object.assign({}, {
         ...state,
         ...res,
@@ -78,7 +72,6 @@ export default function SessionReducer(state = {}, action) {
       });
       return newState;
     case AUTHENTICATE_OWNER_FAILURE:
-      console.log('AUTHENTICATE_OWNER_FAILURE ', action.error)
       newState = Object.assign({}, {
         ...state,
         ...res,

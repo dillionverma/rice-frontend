@@ -6,13 +6,11 @@ export default function OrdersReducer(state = {}, action) {
 
   switch (action.type) {
     case GET_ORDERS:
-      console.log('GET_ORDERS Action')
       newState = Object.assign({}, {
         ...state,
       });
       return newState;
     case GET_ORDERS_SUCCESS:
-      console.log('GET_ORDERS_SUCCESS ', action.orders)
       newState = Object.assign({}, {
         ...state,
         orders: action.orders,
@@ -20,7 +18,6 @@ export default function OrdersReducer(state = {}, action) {
       });
       return newState;
     case GET_ORDERS_FAILURE:
-      console.log('GET_ORDERS_FAILURE ', action.message)
       newState = Object.assign({}, {
         ...state,
       });

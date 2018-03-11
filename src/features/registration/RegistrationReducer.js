@@ -29,14 +29,12 @@ export default function RegistrationReducer(state = {}, action) {
   }
   switch (action.type) {
     case SIGN_UP_OWNER:
-      console.log('SIGN_UP_OWNER Action')
       newState = Object.assign({}, {
         ...state,
         ...res,
       });
       return newState;
     case SIGN_UP_OWNER_SUCCESS:
-      console.log('SIGN_UP_OWNER_SUCCESS ', action)
       localStorage.setItem('token', action.token)
       newState = Object.assign({}, {
         ...state,
@@ -45,7 +43,6 @@ export default function RegistrationReducer(state = {}, action) {
       });
       return newState;
     case SIGN_UP_OWNER_FAILURE:
-      console.log('SIGN_UP_OWNER_FAILURE ', action.error)
       newState = Object.assign({}, {
         ...state,
         ...res,
