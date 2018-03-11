@@ -1,0 +1,47 @@
+.order {
+}
+
+.order-heading {
+}
+
+.order-section {
+  padding: 20px;
+}
+
+/* ORDER-INFO */
+
+.order-info .info {
+  display: table-cell;
+  white-space: nowrap;
+}
+
+.order-info .info-value {
+  display: table-cell;
+  white-space: nowrap;
+  padding-left: 8px;
+}
+
+
+/* ORDER-SECONDARY */
+
+.order-secondary-info {
+  text-align: right;
+}
+
+.info-container {
+  padding: 0 4px 4px 4px;
+}
+
+.detail-heading {
+  color: rgba(0,0,0,.85);
+  font-size: 20px;
+}
+
+/* STEPS */
+
+@media screen and (max-width: 768px) {
+  .order-secondary-info {
+    text-align: left;
+    margin-top: 20px;
+  }
+}

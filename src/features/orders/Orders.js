@@ -57,6 +57,11 @@ class Orders extends Component {
     return(
       <div>
         <OrdersView
+          onRow={(record) => {
+            return {
+              onClick: () => {this.props.history.push(`/orders/${record.number}`)},       // click row
+            };
+          }}
           orders={this.state.orders}
           pagination={this.state.pagination}
           loading={this.state.loading}
