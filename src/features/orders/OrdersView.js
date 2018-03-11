@@ -45,12 +45,19 @@ function status(text) {
       return statusComp(text, 'success')
     case 'cancelled':
       return statusComp(text, 'error')
+    case 'delivered':
+      return statusComp(text, 'warning')
     default:
       return null
   }
 }
 
 const columns = [
+  {
+    title: 'Number',
+    dataIndex: 'number',
+    width: '8%',
+  },
   {
     title: 'Name',
     dataIndex: 'name',
@@ -66,7 +73,7 @@ const columns = [
   {
     title: 'Table',
     dataIndex: 'table.number',
-    width: '12%',
+    width: '8%',
   },
   {
     title: 'Price',
@@ -110,6 +117,7 @@ class OrdersView extends Component {
           columns={columns}
           dataSource={this.props.orders}
           rowKey={order => order.id}
+          onRow={this.props.onRow}
           pagination={this.props.pagination}
           loading={this.props.loading}
           onChange={this.props.handleTableChange}

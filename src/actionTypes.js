@@ -19,6 +19,10 @@ export const GET_ORDERS         = 'GET_ORDERS';
 export const GET_ORDERS_SUCCESS = 'GET_ORDERS_SUCCESS';
 export const GET_ORDERS_FAILURE = 'GET_ORDERS_FAILURE';
 
+export const GET_ORDER         = 'GET_ORDER';
+export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
+export const GET_ORDER_FAILURE = 'GET_ORDER_FAILURE';
+
 export const GET_MENUS         = 'GET_MENUS';
 export const GET_MENUS_SUCCESS = 'GET_MENUS_SUCCESS';
 export const GET_MENUS_FAILURE = 'GET_MENUS_FAILURE';
