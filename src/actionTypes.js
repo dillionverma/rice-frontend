@@ -13,51 +13,29 @@ const actionTypeNames = [
   'AUTHENTICATE_OWNER_SUCCESS',
   'AUTHENTICATE_OWNER_FAILURE',
 
-  'GET_ORDERS_OWNER',
-  'GET_ORDERS_OWNER_SUCCESS',
-  'GET_ORDERS_OWNER_FAILURE',
+  'GET_ORDERS',
+  'GET_ORDERS_PENDING',
+  'GET_ORDERS_SUCCESS',
+  'GET_ORDERS_FAILURE',
 
-  'GET_ORDER_OWNER',
-  'GET_ORDER_OWNER_SUCCESS',
-  'GET_ORDER_OWNER_FAILURE',
+  'GET_ORDER',
+  'GET_ORDER_PENDING',
+  'GET_ORDER_SUCCESS',
+  'GET_ORDER_FAILURE',
 
-  'GET_MENUS_OWNER',
-  'GET_MENUS_OWNER_SUCCESS',
-  'GET_MENUS_OWNER_FAILURE',
+  'GET_MENUS',
+  'GET_MENUS_PENDING',
+  'GET_MENUS_SUCCESS',
+  'GET_MENUS_FAILURE',
 
   'GET_TABLES',
+  'GET_TABLES_SUCCESS',
+  'GET_TABLES_FAILURE',
+
   'CREATE_TABLE',
+  'CREATE_TABLE_SUCCESS',
+  'CREATE_TABLE_FAILURE',
 ]
-
-export const LOGIN_OWNER = 'LOGIN_OWNER';
-export const LOGIN_OWNER_SUCCESS = 'LOGIN_OWNER_SUCCESS';
-export const LOGIN_OWNER_FAILURE = 'LOGIN_OWNER_FAILURE';
-
-export const LOGOUT_OWNER = 'LOGOUT_OWNER';
-
-export const SIGN_UP_OWNER = 'SIGN_UP_OWNER';
-export const SIGN_UP_OWNER_SUCCESS = 'SIGN_UP_OWNER_SUCCESS';
-export const SIGN_UP_OWNER_FAILURE = 'SIGN_UP_OWNER_FAILURE';
-
-export const AUTHENTICATE_OWNER = 'AUTHENTICATE_OWNER';
-export const AUTHENTICATE_OWNER_SUCCESS = 'AUTHENTICATE_OWNER_SUCCESS';
-export const AUTHENTICATE_OWNER_FAILURE = 'AUTHENTICATE_OWNER_FAILURE';
-
-export const GET_TABLES = 'GET_TABLES';
-export const CREATE_TABLE = 'CREATE_TABLE';
-
-export const GET_ORDERS         = 'GET_ORDERS';
-export const GET_ORDERS_SUCCESS = 'GET_ORDERS_SUCCESS';
-export const GET_ORDERS_FAILURE = 'GET_ORDERS_FAILURE';
-
-export const GET_ORDER         = 'GET_ORDER';
-export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
-export const GET_ORDER_FAILURE = 'GET_ORDER_FAILURE';
-
-export const GET_MENUS         = 'GET_MENUS';
-export const GET_MENUS_SUCCESS = 'GET_MENUS_SUCCESS';
-export const GET_MENUS_FAILURE = 'GET_MENUS_FAILURE';
-
 
 const actionTypes = actionTypeNames.reduce(
   (obj, actionTypeName) => ({
@@ -66,5 +44,16 @@ const actionTypes = actionTypeNames.reduce(
   }),
   {},
 );
+
+export const failureActionTypes = actionTypeNames
+  .map((a) => (/FAILURE/).test(a) ? a : null)
+  .filter((a) => a != null)
+  .reduce((obj, actionTypeName) => ({
+    ...obj,
+    [actionTypeName]: actionTypeName,
+  }),
+  {},
+);
+
 
 export default actionTypes;

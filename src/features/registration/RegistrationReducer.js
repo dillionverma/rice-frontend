@@ -1,9 +1,4 @@
-import {
-  SIGN_UP_OWNER,
-  SIGN_UP_OWNER_SUCCESS,
-  SIGN_UP_OWNER_FAILURE,
-} from '../../actionTypes';
-
+import actionTypes from 'actionTypes';
 
 const INITIAL_STATE = {
   isRegistered:     false,
@@ -17,36 +12,61 @@ const INITIAL_STATE = {
 }
 export default function RegistrationReducer(state = {}, action) {
   let newState;
-  let res = {
-    isRegistered:     action.isRegistered,
-    isAuthenticating: action.isAuthenticating,
-    emailStatus:      action.emailStatus,
-    emailMessage:     action.emailMessage,
-    passwordStatus:   action.passwordStatus,
-    passwordMessage:  action.passwordMessage,
-    tokenStatus:      action.tokenStatus,
-    tokenMessage:     action.tokenMessage,
-  }
   switch (action.type) {
-    case SIGN_UP_OWNER:
+    case actionTypes.SIGN_UP_OWNER:
       newState = Object.assign({}, {
         ...state,
-        ...res,
+        isRegistered: false,
+        isAuthenticating: true,
+        emailStatus: 'validating',
+        emailMessage: null,
+        passwordStatus: 'validating',
+        passwordMessage: null,
+        tokenStatus: 'validating',
+        tokenMessage: null,
       });
       return newState;
-    case SIGN_UP_OWNER_SUCCESS:
+    case actionTypes.SIGN_UP_OWNER_SUCCESS:
       localStorage.setItem('token', action.token)
       newState = Object.assign({}, {
         ...state,
-        ...res,
-        token: action.token,
+        isRegistered: true,
+        isAuthenticating: false,
+        emailStatus: 'success',
+        emailMessage: null,
+        passwordStatus: 'success',
+        passwordMessage: null,
+        tokenStatus: 'success',
+        tokenMessage: null,
+        token: action.payload.data.token,
       });
       return newState;
-    case SIGN_UP_OWNER_FAILURE:
-      newState = Object.assign({}, {
-        ...state,
-        ...res,
-      });
+    case actionTypes.SIGN_UP_OWNER_FAILURE:
+      if (action.payload.response.data.errors[0].detail === 'email') {
+        newState = Object.assign({}, {
+          ...state,
+          isRegistered: false,
+          isAuthenticating: false,
+          emailStatus: 'error',
+          emailMessage: action.payload.response.data.errors[0].title,
+        })
+      } else if (action.payload.response.data.errors[0].detail === 'password') {
+        newState = Object.assign({}, {
+          ...state,
+          isRegistered: false,
+          isAuthenticating: false,
+          passwordStatus: 'error',
+          passwordMessage: action.payload.response.data.errors[0].title,
+        })
+      } else if (action.payload.response.data.errors[0].detail === 'token') {
+        newState = Object.assign({}, {
+          ...state,
+          isRegistered: false,
+          isAuthenticating: false,
+          tokenStatus: 'error',
+          tokenMessage: action.payload.response.data.errors[0].title,
+        })
+      }
       return newState;
     default:
       return state;

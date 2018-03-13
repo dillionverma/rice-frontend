@@ -1,16 +1,16 @@
-import { Record, Map, List } from 'immutable';
+import { Record, OrderedMap, List } from 'immutable';
 
-  attributes :id
-  attribute :price
-  attribute :created_at
-  attribute :name
-  attribute :number
-  attribute :status
-  attribute :restaurant
-  has_one  :table
-  has_many :order_items
+  //attributes :id
+  //attribute :price
+  //attribute :created_at
+  //attribute :name
+  //attribute :number
+  //attribute :status
+  //attribute :restaurant
+  //has_one  :table
+  //has_many :order_items
 
-export Order = Record({
+export const OrderRecord = Record({
   id: 0,
   price: '',
   name: '',
@@ -23,5 +23,7 @@ export Order = Record({
 });
 
 export default Record({
-  entities: Map(),
+  entities: OrderedMap(),
+  isFetching: false,
+  error: '',
 });
