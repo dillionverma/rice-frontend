@@ -11,20 +11,20 @@ class Menus extends Component {
   }
 
   componentDidMount() {
-    this.props.getMenus()
+    this.props.getMenus();
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.menus && nextProps.menus.length) {
       this.setState({
         menus: nextProps.menus,
-      })
+      });
     }
   }
 
   render() {
-    console.log(this.state.menus)
-    return(
+    console.log(this.state.menus);
+    return (
       <div>
         { this.state.menus.length ?
           <MenusView menus={this.state.menus} />
@@ -32,7 +32,7 @@ class Menus extends Component {
           <p>No Data</p>
         }
       </div>
-    )
+    );
   }
 }
 
@@ -44,11 +44,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getMenus: () => { dispatch(getMenus()) }
+    getMenus: () => { dispatch(getMenus()); },
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Menus);

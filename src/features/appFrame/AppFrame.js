@@ -7,7 +7,7 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import { logout } from '../session/SessionActions';
 
-const { Content, Footer} = Layout;
+const { Content, Footer } = Layout;
 
 class AppFrame extends Component {
   state = {
@@ -18,7 +18,7 @@ class AppFrame extends Component {
   }
 
   render() {
-    function upCase(string){
+    function upCase(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
     return (
@@ -35,9 +35,8 @@ class AppFrame extends Component {
           />
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
-             {this.props.location.pathname.split('/').map((path, i) =>
-              <Breadcrumb.Item key={i}>{upCase(path)}</Breadcrumb.Item>
-             )}
+              {this.props.location.pathname.split('/').map((path, i) =>
+                <Breadcrumb.Item key={i}>{upCase(path)}</Breadcrumb.Item>)}
             </Breadcrumb>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
               {this.props.children}
@@ -54,16 +53,16 @@ class AppFrame extends Component {
 
 function mapStateToProps(state) {
   return {
-    status: state.session.status
-  }
+    status: state.session.status,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    logout: () => { dispatch(logout()) }
-  }
+    logout: () => { dispatch(logout()); },
+  };
 }
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(withRouter(AppFrame));

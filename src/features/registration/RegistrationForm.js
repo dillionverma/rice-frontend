@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Form, Icon, Input, Button, Checkbox, message, Tooltip } from 'antd';
 import { signUp } from './RegistrationActions';
 import './RegistrationForm.css';
+
 const FormItem = Form.Item;
 
 const tailFormItemLayout = {
@@ -21,8 +22,8 @@ const tailFormItemLayout = {
 };
 
 class RegistrationForm extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
@@ -35,12 +36,12 @@ class RegistrationForm extends Component {
       tokenStatus: null,
       isAuthenticating: false,
       isRegistered: false,
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit = (e) => {
-    console.log(this.state)
+    console.log(this.state);
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -51,19 +52,19 @@ class RegistrationForm extends Component {
 
   handleChange = (e) => {
     if (e.target.id === 'email') {
-      this.setState({email: e.target.value})
+      this.setState({ email: e.target.value });
       if (e.target.value === '') {
-        this.setState({emailStatus: null})
+        this.setState({ emailStatus: null });
       }
     } else if (e.target.id === 'password') {
-      this.setState({password: e.target.value})
+      this.setState({ password: e.target.value });
       if (e.target.value === '') {
-        this.setState({passwordStatus: null})
+        this.setState({ passwordStatus: null });
       }
     } else if (e.target.id === 'token') {
-      this.setState({token: e.target.value})
+      this.setState({ token: e.target.value });
       if (e.target.value === '') {
-        this.setState({tokenStatus: null})
+        this.setState({ tokenStatus: null });
       }
     }
   }
@@ -84,20 +85,20 @@ class RegistrationForm extends Component {
     callback();
   }
 
-  componentWillReceiveProps(nextProps){
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      isRegistered:     nextProps.isRegistered,
+      isRegistered: nextProps.isRegistered,
       isAuthenticating: nextProps.isAuthenticating,
-      emailMessage:     nextProps.emailMessage,
-      emailStatus:      nextProps.emailStatus,
-      passwordMessage:  nextProps.passwordMessage,
-      passwordStatus:   nextProps.passwordStatus,
-      tokenStatus:      nextProps.tokenStatus,
-      tokenMessage:     nextProps.tokenMessage,
-    })
+      emailMessage: nextProps.emailMessage,
+      emailStatus: nextProps.emailStatus,
+      passwordMessage: nextProps.passwordMessage,
+      passwordStatus: nextProps.passwordStatus,
+      tokenStatus: nextProps.tokenStatus,
+      tokenMessage: nextProps.tokenMessage,
+    });
     if (nextProps.isRegistered) {
-      this.props.history.push('/dashboard')
-      message.success('Successfully logged in')
+      this.props.history.push('/dashboard');
+      message.success('Successfully logged in');
     }
   }
 
@@ -112,10 +113,8 @@ class RegistrationForm extends Component {
             help={this.state.emailMessage}
           >
             {getFieldDecorator('email', {
-              rules: [{ required: true, message: 'Please input your email!', type: 'email'}],
-            })(
-              <Input onChange={this.handleChange} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
-            )}
+              rules: [{ required: true, message: 'Please input your email!', type: 'email' }],
+            })(<Input onChange={this.handleChange} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />)}
           </FormItem>
           <FormItem
             hasFeedback
@@ -125,10 +124,8 @@ class RegistrationForm extends Component {
           >
             {getFieldDecorator('password', {
               rules: [{ required: true, min: 6 },
-                      { validator: this.validateToNextPassword}],
-            })(
-              <Input onChange={this.handleChange} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
-            )}
+                      { validator: this.validateToNextPassword }],
+            })(<Input onChange={this.handleChange} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />)}
           </FormItem>
           <FormItem
             hasFeedback
@@ -142,9 +139,7 @@ class RegistrationForm extends Component {
               }, {
                 validator: this.compareToFirstPassword,
               }],
-            })(
-              <Input onChange={this.handleChange} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Confirm Password" />
-            )}
+            })(<Input onChange={this.handleChange} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Confirm Password" />)}
           </FormItem>
           <FormItem
             hasFeedback
@@ -154,24 +149,20 @@ class RegistrationForm extends Component {
           >
             {getFieldDecorator('token', {
               rules: [{ required: true }],
-            })(
-              <span>
-                <Tooltip title="Don't have a registration token? Send us an email and let us verify your restaurant!">
-                  <Icon style={{position: 'absolute', left: '-22px', top: '2px'}} type="question-circle-o" />
-                </Tooltip>
-                <Input onChange={this.handleChange} prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} type="string" placeholder="Token" />
-              </span>
-            )}
+            })(<span>
+              <Tooltip title="Don't have a registration token? Send us an email and let us verify your restaurant!">
+                <Icon style={{ position: 'absolute', left: '-22px', top: '2px' }} type="question-circle-o" />
+              </Tooltip>
+              <Input onChange={this.handleChange} prefix={<Icon type="key" style={{ color: 'rgba(0,0,0,.25)' }} />} type="string" placeholder="Token" />
+               </span>)}
           </FormItem>
           <FormItem>
             {getFieldDecorator('agreement', {
              valuePropName: 'checked',
               rules: [{
-                required: true, message: 'Must agree to Terms and Conditions!'
-              }]
-            })(
-            <Checkbox>I have read the <a href="">Terms and Conditions</a></Checkbox>
-            )}
+                required: true, message: 'Must agree to Terms and Conditions!',
+              }],
+            })(<Checkbox>I have read the <a href="">Terms and Conditions</a></Checkbox>)}
             <Button type="primary" htmlType="submit" className="registration-form-button">
               Sign Up
             </Button>
@@ -185,24 +176,24 @@ class RegistrationForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    isRegistered:     state.registration.isRegistered,
+    isRegistered: state.registration.isRegistered,
     isAuthenticating: state.registration.isAuthenticating,
-    emailStatus:      state.registration.emailStatus,
-    emailMessage:     state.registration.emailMessage,
-    passwordStatus:   state.registration.passwordStatus,
-    passwordMessage:  state.registration.passwordMessage,
-    tokenStatus:      state.registration.tokenStatus,
-    tokenMessage:     state.registration.tokenMessage,
+    emailStatus: state.registration.emailStatus,
+    emailMessage: state.registration.emailMessage,
+    passwordStatus: state.registration.passwordStatus,
+    passwordMessage: state.registration.passwordMessage,
+    tokenStatus: state.registration.tokenStatus,
+    tokenMessage: state.registration.tokenMessage,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    signUp: bindActionCreators(signUp, dispatch)
+    signUp: bindActionCreators(signUp, dispatch),
   };
 }
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(withRouter(Form.create()(RegistrationForm)));

@@ -19,7 +19,7 @@ export default function OrdersReducer(state = {}, action) {
     case actionTypes.GET_ORDERS_FAILURE:
       newState = Object.assign({}, {
         ...state,
-        error: action.payload.response.data.errors
+        error: action.payload.response.data.errors,
       });
       return newState;
     case actionTypes.GET_ORDER:
@@ -36,7 +36,7 @@ export default function OrdersReducer(state = {}, action) {
     case actionTypes.GET_ORDER_FAILURE:
       newState = Object.assign({}, {
         ...state,
-        error: action.payload.response.data.errors
+        error: action.payload.response.data.errors,
       });
       return newState;
     default:
