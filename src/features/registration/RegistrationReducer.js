@@ -27,7 +27,7 @@ export default function RegistrationReducer(state = {}, action) {
       });
       return newState;
     case actionTypes.SIGN_UP_OWNER_SUCCESS:
-      localStorage.setItem('token', action.token)
+      localStorage.setItem('token', action.payload.data.token)
       newState = Object.assign({}, {
         ...state,
         isRegistered: true,
