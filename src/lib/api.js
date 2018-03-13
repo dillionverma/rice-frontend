@@ -16,8 +16,8 @@ function auth() {
 }
 
 const api = {
-  post(path, body = {}) {
-    return axios({
+  async post(path, body = {}) {
+    return await axios({
       baseURL:  API_URL,
       headers:  auth(),
       url:      path,
@@ -25,8 +25,8 @@ const api = {
       data:     body,
     })
   },
-  get(path, params = {}) {
-    return axios({
+  async get(path, params = {}) {
+    return await axios({
       baseURL:  API_URL,
       headers:  auth(),
       url:      path,

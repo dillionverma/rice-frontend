@@ -1,23 +1,24 @@
-import {GET_MENUS, GET_MENUS_SUCCESS, GET_MENUS_FAILURE} from '../../actionTypes';
+import actionTypes from 'actionTypes';
 
 export default function MenusReducer(state = {}, action) {
   let newState;
 
   switch (action.type) {
-    case GET_MENUS:
+    case actionTypes.GET_MENUS:
       newState = Object.assign({}, {
         ...state,
       });
       return newState;
-    case GET_MENUS_SUCCESS:
+    case actionTypes.GET_MENUS_SUCCESS:
       newState = Object.assign({}, {
         ...state,
-        menus: action.menus,
+        menus: action.payload.data.menus,
       });
       return newState;
-    case GET_MENUS_FAILURE:
+    case actionTypes.GET_MENUS_FAILURE:
       newState = Object.assign({}, {
         ...state,
+        error: action.payload.response.data.errors
       });
       return newState;
     default:

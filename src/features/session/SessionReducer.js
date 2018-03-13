@@ -1,12 +1,4 @@
-import {
-  LOGIN_OWNER,
-  LOGIN_OWNER_SUCCESS,
-  LOGIN_OWNER_FAILURE,
-  LOGOUT_OWNER,
-  AUTHENTICATE_OWNER,
-  AUTHENTICATE_OWNER_SUCCESS,
-  AUTHENTICATE_OWNER_FAILURE,
-} from '../../actionTypes';
+import actionTypes from 'actionTypes';
 
 const INITIAL_STATE = {
   isLoggedIn:       false,
@@ -19,63 +11,85 @@ const INITIAL_STATE = {
 
 export default function SessionReducer(state = {}, action) {
   let newState;
-  let res = {
-    isLoggedIn:       action.isLoggedIn,
-    isAuthenticating: action.isAuthenticating,
-    emailStatus:      action.emailStatus,
-    passwordStatus:   action.passwordStatus,
-    emailMessage:     action.emailMessage,
-    passwordMessage:  action.passwordMessage
-  };
-
   switch (action.type) {
-    case LOGIN_OWNER:
+    case actionTypes.LOGIN_OWNER:
       newState = Object.assign({}, {
         ...state,
-        ...res,
+        isLoggedIn: false,
+        isAuthenticating: true,
+        emailStatus: 'validating',
+        emailMessage: null,
+        passwordStatus: 'validating',
+        passwordMessage: null,
       });
       return newState;
-    case LOGIN_OWNER_SUCCESS:
-      localStorage.setItem('token', action.token)
+    case actionTypes.LOGIN_OWNER_SUCCESS:
+      localStorage.setItem('token', action.payload.data.token)
       newState = Object.assign({}, {
         ...state,
-        ...res,
-        token: action.token,
-        error: null,
+        isLoggedIn: true,
+        isAuthenticating: false,
+        emailStatus: 'success',
+        emailMessage: null,
+        passwordStatus: 'success',
+        passwordMessage: null,
+        token: action.payload.data.token
       });
       return newState;
-    case LOGIN_OWNER_FAILURE:
+    case actionTypes.LOGIN_OWNER_FAILURE:
       localStorage.removeItem('token')
-      newState = Object.assign({}, {
-        ...state,
-        ...res,
-      });
+      if (action.payload.response.data.errors[0].detail === 'email') {
+        newState = Object.assign({}, {
+          ...state,
+          isLoggedIn: false,
+          isAuthenticating: false,
+          emailStatus: 'error',
+          emailMessage: action.payload.response.data.errors[0].title,
+        });
+      } else if (action.payload.response.data.errors[0].detail === 'password') {
+        newState = Object.assign({}, {
+          ...state,
+          isLoggedIn: false,
+          isAuthenticating: false,
+          passwordStatus: 'error',
+          passwordMessage: action.payload.response.data.errors[0].title,
+        });
+      }
       return newState;
-    case LOGOUT_OWNER:
+    case actionTypes.LOGOUT_OWNER:
       console.log('LOGOUT_OWNER')
       newState = Object.assign({}, {
         ...state,
-        ...res,
+        isLoggedIn: false,
+        isAuthenticating: false,
+        emailStatus: null,
+        emailMessage: null,
+        passwordStatus: null,
+        passwordMessage: null,
       });
       return newState;
-    case AUTHENTICATE_OWNER:
+    case actionTypes.AUTHENTICATE_OWNER:
       newState = Object.assign({}, {
         ...state,
-        ...res,
+        isLoggedIn: false,
+        isAuthenticating: true,
       });
       return newState;
-    case AUTHENTICATE_OWNER_SUCCESS:
+    case actionTypes.AUTHENTICATE_OWNER_SUCCESS:
+      localStorage.setItem('token', action.payload.data.token)
       newState = Object.assign({}, {
         ...state,
-        ...res,
-        owner: action.owner,
+        isLoggedIn: true,
+        isAuthenticating: false,
+        owner: action.payload.data.owner,
       });
       return newState;
-    case AUTHENTICATE_OWNER_FAILURE:
+    case actionTypes.AUTHENTICATE_OWNER_FAILURE:
       newState = Object.assign({}, {
         ...state,
-        ...res,
-        error: action.error
+        isLoggedIn: false,
+        isAuthenticating: false,
+        error: action.payload.response.data.errors,
       });
       return newState;
     default:

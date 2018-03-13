@@ -1,47 +1,42 @@
-import {
-  GET_ORDERS, 
-  GET_ORDERS_SUCCESS, 
-  GET_ORDERS_FAILURE,
-  GET_ORDER, 
-  GET_ORDER_SUCCESS, 
-  GET_ORDER_FAILURE,
-} from '../../actionTypes';
+import actionTypes from 'actionTypes';
 
 export default function OrdersReducer(state = {}, action) {
   let newState;
 
   switch (action.type) {
-    case GET_ORDERS:
+    case actionTypes.GET_ORDERS:
       newState = Object.assign({}, {
         ...state,
       });
       return newState;
-    case GET_ORDERS_SUCCESS:
+    case actionTypes.GET_ORDERS_SUCCESS:
       newState = Object.assign({}, {
         ...state,
-        orders: action.orders,
-        total: action.total,
+        orders: action.payload.data.orders,
+        total: action.payload.data.meta.total,
       });
       return newState;
-    case GET_ORDERS_FAILURE:
+    case actionTypes.GET_ORDERS_FAILURE:
+      newState = Object.assign({}, {
+        ...state,
+        error: action.payload.response.data.errors
+      });
+      return newState;
+    case actionTypes.GET_ORDER:
       newState = Object.assign({}, {
         ...state,
       });
       return newState;
-    case GET_ORDER:
+    case actionTypes.GET_ORDER_SUCCESS:
       newState = Object.assign({}, {
         ...state,
+        order: action.payload.data.order,
       });
       return newState;
-    case GET_ORDER_SUCCESS:
+    case actionTypes.GET_ORDER_FAILURE:
       newState = Object.assign({}, {
         ...state,
-        order: action.order,
-      });
-      return newState;
-    case GET_ORDER_FAILURE:
-      newState = Object.assign({}, {
-        ...state,
+        error: action.payload.response.data.errors
       });
       return newState;
     default:
