@@ -35,20 +35,12 @@ class LoggedIn extends Component {
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     isLoggedIn:       state.session.isLoggedIn,
     isAuthenticating: state.session.isAuthenticating,
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    authenticate: () => { dispatch(authenticate()) }
-  }
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  }),
+  dispatch => ({
+    authenticate: () => dispatch(authenticate())
+  }),
 )(withRouter(LoggedIn));

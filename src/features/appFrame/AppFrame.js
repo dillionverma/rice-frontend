@@ -52,18 +52,11 @@ class AppFrame extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    status: state.session.status
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    logout: () => { dispatch(logout()) }
-  }
-}
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  state => ({
+    status: state.session.status
+  }),
+  dispatch => ({
+    logout: () => dispatch(logout()) 
+  }),
 )(withRouter(AppFrame));

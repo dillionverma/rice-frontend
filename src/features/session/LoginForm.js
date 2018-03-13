@@ -112,24 +112,16 @@ class LoginForm extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     isLoggedIn:       state.session.isLoggedIn,
     isAuthenticating: state.session.isAuthenticating,
     emailStatus:      state.session.emailStatus,
     emailMessage:     state.session.emailMessage,
     passwordStatus:   state.session.passwordStatus,
     passwordMessage:  state.session.passwordMessage,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
+  }),
+  dispatch => ({
     login: bindActionCreators(login, dispatch)
-  };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  }),
 )(withRouter(Form.create()(LoginForm)));

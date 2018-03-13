@@ -59,20 +59,12 @@ class Tables extends Component {
 
 
 
-function mapStateToProps(state) {
-  return {
-    tables: state.restaurant.tables,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    getTables:   () => { dispatch(getTables())   },
-    createTable: () => { dispatch(createTable()) }
-  };
-}
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  state => ({
+    tables: state.restaurant.tables,
+  }),
+  dispatch => ({
+    getTables:   () => dispatch(getTables()),
+    createTable: () => dispatch(createTable())
+  }),
 )(Tables);

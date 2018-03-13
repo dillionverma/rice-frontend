@@ -36,19 +36,11 @@ class Menus extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    menus: state.menus.menus,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    getMenus: () => { dispatch(getMenus()) }
-  };
-}
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  state => ({
+    menus: state.menus.menus,
+  }),
+  dispatch => ({
+    getMenus: () => dispatch(getMenus())
+  }),
 )(Menus);

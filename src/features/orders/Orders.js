@@ -72,20 +72,12 @@ class Orders extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     orders: state.orders.orders,
     total: state.orders.total,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    getOrders: (pagination) => { dispatch(getOrders(pagination)) }
-  };
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  }),
+  dispatch => ({
+    getOrders: pagination => dispatch(getOrders(pagination))
+  }),
 )(Orders);

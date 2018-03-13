@@ -183,8 +183,8 @@ class RegistrationForm extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
+export default connect(
+  state => ({
     isRegistered:     state.registration.isRegistered,
     isAuthenticating: state.registration.isAuthenticating,
     emailStatus:      state.registration.emailStatus,
@@ -193,16 +193,8 @@ function mapStateToProps(state) {
     passwordMessage:  state.registration.passwordMessage,
     tokenStatus:      state.registration.tokenStatus,
     tokenMessage:     state.registration.tokenMessage,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
+  }),
+  dispatch => ({
     signUp: bindActionCreators(signUp, dispatch)
-  };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  }),
 )(withRouter(Form.create()(RegistrationForm)));

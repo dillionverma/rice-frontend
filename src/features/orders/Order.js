@@ -3,12 +3,8 @@ import {
   Divider,
   Button,
   message,
-  Popconfirm,
   Badge,
-  Steps,
-  Popover,
   Table,
-  Icon,
   Row,
   Col,
 } from 'antd';
@@ -16,8 +12,6 @@ import { connect } from 'react-redux';
 import { getOrder } from './OrdersActions';
 import './Order.css'
 import moment from 'moment';
-
-const Step = Steps.Step;
 
 
 function handleDeliverClick(e) {
@@ -191,20 +185,11 @@ class Order extends Component {
   }
 }
 
-
-function mapStateToProps(state) {
-  return {
-    order: state.orders.order,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    getOrder: (id) => { dispatch(getOrder(id)) }
-  };
-}
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  state => ({
+    order: state.orders.order,
+  }),
+  dispatch => ({
+    getOrder: id => dispatch(getOrder(id))
+  }),
 )(Order);
