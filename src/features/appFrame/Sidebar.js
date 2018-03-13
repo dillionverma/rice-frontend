@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
-import { Layout, Menu, Icon  } from 'antd';
-import logo from '../../ricepay-transparent.png'
+import { withRouter } from 'react-router-dom';
+import { Layout, Menu, Icon } from 'antd';
+import logo from '../../ricepay-transparent.png';
 
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 class Sidebar extends Component {
-
   handleClick = (e) => {
-    console.log(e)
-    switch(parseInt(e.key, 10)) {
+    console.log(e);
+    switch (parseInt(e.key, 10)) {
       case 1:
-        this.props.history.push('/dashboard')
+        this.props.history.push('/dashboard');
         break;
       case 2:
-        this.props.history.push('/orders')
+        this.props.history.push('/orders');
         break;
       case 6:
-        this.props.history.push('/menus')
+        this.props.history.push('/menus');
         break;
       case 10:
-        this.props.history.push('/restaurant/tables')
+        this.props.history.push('/restaurant/tables');
         break;
       case 13:
-        this.props.logout()
+        this.props.logout();
         break;
       default:
-        this.props.history.push('/dashboard')
+        this.props.history.push('/dashboard');
         break;
     }
   }
@@ -38,12 +37,12 @@ class Sidebar extends Component {
         collapsible
         collapsed={this.props.collapsed}
         onCollapse={this.props.collapse}
-        breakpoint={'md'}
+        breakpoint="md"
         style={{ background: '#fff' }}
         trigger={null}
       >
         <div className="logo">
-          <img src={logo} alt={"logo"}/>
+          <img src={logo} alt="logo" />
         </div>
         <Menu theme="light" defaultSelectedKeys={['1']} onSelect={this.handleClick.bind(this)} mode="inline">
           <Menu.Item key="1">

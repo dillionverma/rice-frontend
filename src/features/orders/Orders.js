@@ -10,10 +10,10 @@ class Orders extends Component {
       current: 1,
       pageSize: 10,
       total: 0,
-      //showSizeChanger: true,
-      showQuickJumper: true
+      // showSizeChanger: true,
+      showQuickJumper: true,
     },
-    loading: false
+    loading: false,
   }
 
   handleTableChange = (pagination, filters, sorter) => {
@@ -24,20 +24,20 @@ class Orders extends Component {
       pagination: pager,
     });
 
-    let params = {
+    const params = {
       page: pagination.current,
-      pageSize: pagination.pageSize
-    }
-    this.props.getOrders(params)
+      pageSize: pagination.pageSize,
+    };
+    this.props.getOrders(params);
   }
 
   componentDidMount() {
-    console.log('mount')
-    let params = {
+    console.log('mount');
+    const params = {
       page: this.state.pagination.current,
-      pageSize: this.state.pagination.pageSize
-    }
-    this.setState({loading: true})
+      pageSize: this.state.pagination.pageSize,
+    };
+    this.setState({ loading: true });
     this.props.getOrders(params);
   }
 
@@ -54,21 +54,19 @@ class Orders extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <OrdersView
-          onRow={(record) => {
-            return {
-              onClick: () => {this.props.history.push(`/orders/${record.number}`)},       // click row
-            };
-          }}
+          onRow={record => ({
+              onClick: () => { this.props.history.push(`/orders/${record.number}`); }, // click row
+            })}
           orders={this.state.orders}
           pagination={this.state.pagination}
           loading={this.state.loading}
           handleTableChange={this.handleTableChange}
         />
       </div>
-    )
+    );
   }
 }
 
@@ -81,11 +79,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getOrders: (pagination) => { dispatch(getOrders(pagination)) }
+    getOrders: (pagination) => { dispatch(getOrders(pagination)); },
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Orders);

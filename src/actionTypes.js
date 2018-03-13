@@ -35,7 +35,7 @@ const actionTypeNames = [
   'CREATE_TABLE',
   'CREATE_TABLE_SUCCESS',
   'CREATE_TABLE_FAILURE',
-]
+];
 
 const actionTypes = actionTypeNames.reduce(
   (obj, actionTypeName) => ({
@@ -46,14 +46,15 @@ const actionTypes = actionTypeNames.reduce(
 );
 
 export const failureActionTypes = actionTypeNames
-  .map((a) => (/FAILURE/).test(a) ? a : null)
-  .filter((a) => a != null)
-  .reduce((obj, actionTypeName) => ({
-    ...obj,
-    [actionTypeName]: actionTypeName,
-  }),
-  {},
-);
+  .map(a => ((/FAILURE/).test(a) ? a : null))
+  .filter(a => a != null)
+  .reduce(
+    (obj, actionTypeName) => ({
+      ...obj,
+      [actionTypeName]: actionTypeName,
+    }),
+    {},
+  );
 
 
 export default actionTypes;

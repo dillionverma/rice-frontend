@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { getTables, createTable } from './RestaurantActions';
 import QRCode from 'qrcode.react';
 import './Tables.css';
@@ -17,21 +17,21 @@ class Tables extends Component {
   }
 
   componentDidMount() {
-    console.log('mount')
+    console.log('mount');
     this.props.getTables();
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.tables && nextProps.tables.length == this.state.count + 1) {
-      message.success('Table successfully created!')
+      message.success('Table successfully created!');
       this.setState({
         tables: nextProps.tables,
-        count: nextProps.tables.length
+        count: nextProps.tables.length,
       });
     } else if (nextProps.tables) {
       this.setState({
         tables: nextProps.tables,
-        count: nextProps.tables.length
+        count: nextProps.tables.length,
       });
     }
   }
@@ -44,19 +44,17 @@ class Tables extends Component {
         </div>
         <Card title="Tables">
           { this.state.tables ? this.state.tables.map((table, i) =>
-          <Card.Grid key={i} style={gridStyle}>
-            <QRCode size={64} value={`${table.id}`} />
-            <Card.Meta style={{marginTop: '10px' }} description={`${table.number}`}/>
-          </Card.Grid>
-          ) :
-          <Card loading style={gridStyle}/>
+            (<Card.Grid key={i} style={gridStyle}>
+              <QRCode size={64} value={`${table.id}`} />
+              <Card.Meta style={{ marginTop: '10px' }} description={`${table.number}`} />
+            </Card.Grid>)) :
+          <Card loading style={gridStyle} />
         }
         </Card>
       </div>
     );
   }
 }
-
 
 
 function mapStateToProps(state) {
@@ -67,12 +65,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getTables:   () => { dispatch(getTables())   },
-    createTable: () => { dispatch(createTable()) }
+    getTables: () => { dispatch(getTables()); },
+    createTable: () => { dispatch(createTable()); },
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Tables);
