@@ -13,7 +13,7 @@ import {
   Col,
 } from 'antd';
 import { connect } from 'react-redux';
-import { getOrder } from './OrderActions';
+import { getOrder } from './OrdersActions';
 import './Order.css'
 import moment from 'moment';
 

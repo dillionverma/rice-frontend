@@ -1,3 +1,34 @@
+const actionTypeNames = [
+  'LOGIN_OWNER',
+  'LOGIN_OWNER_SUCCESS',
+  'LOGIN_OWNER_FAILURE',
+
+  'LOGOUT_OWNER',
+
+  'SIGN_UP_OWNER',
+  'SIGN_UP_OWNER_SUCCESS',
+  'SIGN_UP_OWNER_FAILURE',
+
+  'AUTHENTICATE_OWNER',
+  'AUTHENTICATE_OWNER_SUCCESS',
+  'AUTHENTICATE_OWNER_FAILURE',
+
+  'GET_ORDERS_OWNER',
+  'GET_ORDERS_OWNER_SUCCESS',
+  'GET_ORDERS_OWNER_FAILURE',
+
+  'GET_ORDER_OWNER',
+  'GET_ORDER_OWNER_SUCCESS',
+  'GET_ORDER_OWNER_FAILURE',
+
+  'GET_MENUS_OWNER',
+  'GET_MENUS_OWNER_SUCCESS',
+  'GET_MENUS_OWNER_FAILURE',
+
+  'GET_TABLES',
+  'CREATE_TABLE',
+]
+
 export const LOGIN_OWNER = 'LOGIN_OWNER';
 export const LOGIN_OWNER_SUCCESS = 'LOGIN_OWNER_SUCCESS';
 export const LOGIN_OWNER_FAILURE = 'LOGIN_OWNER_FAILURE';
@@ -26,3 +57,14 @@ export const GET_ORDER_FAILURE = 'GET_ORDER_FAILURE';
 export const GET_MENUS         = 'GET_MENUS';
 export const GET_MENUS_SUCCESS = 'GET_MENUS_SUCCESS';
 export const GET_MENUS_FAILURE = 'GET_MENUS_FAILURE';
+
+
+const actionTypes = actionTypeNames.reduce(
+  (obj, actionTypeName) => ({
+    ...obj,
+    [actionTypeName]: actionTypeName,
+  }),
+  {},
+);
+
+export default actionTypes;
