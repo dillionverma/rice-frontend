@@ -1,13 +1,13 @@
 import actionTypes from 'actionTypes';
 
 const INITIAL_STATE = {
-  isLoggedIn:       false,
+  isLoggedIn: false,
   isAuthenticating: false,
-  emailStatus:      null,
-  passwordStatus:   null,
-  emailMessage:     null,
-  passwordMessage:  null,
-}
+  emailStatus: null,
+  passwordStatus: null,
+  emailMessage: null,
+  passwordMessage: null,
+};
 
 export default function SessionReducer(state = {}, action) {
   let newState;
@@ -24,7 +24,7 @@ export default function SessionReducer(state = {}, action) {
       });
       return newState;
     case actionTypes.LOGIN_OWNER_SUCCESS:
-      localStorage.setItem('token', action.payload.data.token)
+      localStorage.setItem('token', action.payload.data.token);
       newState = Object.assign({}, {
         ...state,
         isLoggedIn: true,
@@ -33,11 +33,11 @@ export default function SessionReducer(state = {}, action) {
         emailMessage: null,
         passwordStatus: 'success',
         passwordMessage: null,
-        token: action.payload.data.token
+        token: action.payload.data.token,
       });
       return newState;
     case actionTypes.LOGIN_OWNER_FAILURE:
-      localStorage.removeItem('token')
+      localStorage.removeItem('token');
       if (action.payload.response.data.errors[0].detail === 'email') {
         newState = Object.assign({}, {
           ...state,
@@ -57,7 +57,7 @@ export default function SessionReducer(state = {}, action) {
       }
       return newState;
     case actionTypes.LOGOUT_OWNER:
-      console.log('LOGOUT_OWNER')
+      console.log('LOGOUT_OWNER');
       newState = Object.assign({}, {
         ...state,
         isLoggedIn: false,
@@ -76,7 +76,7 @@ export default function SessionReducer(state = {}, action) {
       });
       return newState;
     case actionTypes.AUTHENTICATE_OWNER_SUCCESS:
-      localStorage.setItem('token', action.payload.data.token)
+      localStorage.setItem('token', action.payload.data.token);
       newState = Object.assign({}, {
         ...state,
         isLoggedIn: true,

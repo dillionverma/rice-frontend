@@ -4,22 +4,22 @@ import numeral from 'numeral';
 import moment from 'moment';
 
 const Panel = Collapse.Panel;
-const TabPane = Tabs.TabPane
+const TabPane = Tabs.TabPane;
 
 function format(time) {
-  return moment(time).format('h:mm a')
+  return moment(time).format('h:mm a');
 }
 
 class MenusView extends Component {
   render() {
-    return(
+    return (
       <div>
         <Tabs defaultActiveKey="0">
           {this.props.menus.map((menu, i) =>
-          <TabPane tab={<span>{`${menu.menu} ${format(menu.start_time)} - ${format(menu.end_time)}`}</span>} key={i}>
-             <Collapse bordered={false} defaultActiveKey={['0']}>
+            (<TabPane tab={<span>{`${menu.menu} ${format(menu.start_time)} - ${format(menu.end_time)}`}</span>} key={i}>
+              <Collapse bordered={false} defaultActiveKey={['0']}>
                 {menu.menu_categories.map((category, i) =>
-                  <Panel header={category.category} key={i}>
+                  (<Panel header={category.category} key={i}>
                     <List
                       size="small"
                       itemLayout="vertical"
@@ -28,7 +28,7 @@ class MenusView extends Component {
                       renderItem={(item, i) => (
                         <List.Item
                           key={i}
-                          actions={[<span>{`${numeral(item.price/100).format('$0,0.00')}`}</span>]}
+                          actions={[<span>{`${numeral(item.price / 100).format('$0,0.00')}`}</span>]}
                           extra={<img width={80} alt={item.name} src={item.image_url} />}
                         >
                           <List.Item.Meta
@@ -38,14 +38,12 @@ class MenusView extends Component {
                         </List.Item>
                       )}
                     />
-                  </Panel>
-                )}
+                  </Panel>))}
               </Collapse>
-            </TabPane>
-          )}
+            </TabPane>))}
         </Tabs>
       </div>
-    )
+    );
   }
 }
 

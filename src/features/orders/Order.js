@@ -14,7 +14,7 @@ import {
 } from 'antd';
 import { connect } from 'react-redux';
 import { getOrder } from './OrdersActions';
-import './Order.css'
+import './Order.css';
 import moment from 'moment';
 
 const Step = Steps.Step;
@@ -26,29 +26,29 @@ function handleDeliverClick(e) {
 }
 
 function handleRefundClick(e) {
-  //message.info('Click on Refund button.');
+  // message.info('Click on Refund button.');
   console.log('click left button', e);
 }
 
-//function handleMenuClick(e) {
-  ////message.info('Click on menu item.');
-  //console.log('click', e);
-//}
+// function handleMenuClick(e) {
+// //message.info('Click on menu item.');
+// console.log('click', e);
+// }
 
 function refund() {
-  message.success('Successfully Refunded')
+  message.success('Successfully Refunded');
 }
 
 function stepProps(status) {
-  switch(status) {
+  switch (status) {
     case 'ordered':
-      return {current: 0, status: 'process'};
+      return { current: 0, status: 'process' };
     case 'delivered':
-      return {current: 1, status: 'wait'};
+      return { current: 1, status: 'wait' };
     case 'paid':
-      return {current: 2, status: 'finish'};
+      return { current: 2, status: 'finish' };
     case 'cancelled':
-      return {current: 0, status: 'error'};
+      return { current: 0, status: 'error' };
     default:
       return 0;
   }
@@ -57,24 +57,24 @@ function stepProps(status) {
 function statusComp(text, status) {
   return (
     <div>
-      <Badge status={status}/>
+      <Badge status={status} />
       <span>{text}</span>
     </div>
-  )
+  );
 }
 
 function status(text) {
-  switch(text) {
+  switch (text) {
     case 'ordered':
-      return statusComp(text, 'processing')
+      return statusComp(text, 'processing');
     case 'paid':
-      return statusComp(text, 'success')
+      return statusComp(text, 'success');
     case 'cancelled':
-      return statusComp(text, 'error')
+      return statusComp(text, 'error');
     case 'delivered':
-      return statusComp(text, 'warning')
+      return statusComp(text, 'warning');
     default:
-      return null
+      return null;
   }
 }
 
@@ -98,7 +98,7 @@ const columns = [
     title: 'Price',
     dataIndex: 'price',
     width: '10%',
-    render: cents => `$${cents/100}`
+    render: cents => `$${cents / 100}`,
   },
   {
     title: 'Instructions',
@@ -107,25 +107,24 @@ const columns = [
   {
     title: 'Action',
     width: '12%',
-    render: (record) => (
+    render: record => (
       <div>
         <Button onClick={handleDeliverClick}>
           Deliver
         </Button>
       </div>
     ),
-  }
+  },
 ];
 
 
 class Order extends Component {
-
   componentDidMount() {
-    this.props.getOrder(this.props.match.params.id)
+    this.props.getOrder(this.props.match.params.id);
   }
   render() {
     const { order } = this.props;
-    return(
+    return (
       <div>
         {order &&
         <div>
@@ -167,14 +166,14 @@ class Order extends Component {
                     </Col>
                     <Col xs={24} md={12}>
                       <div className="text-secondary">Price</div>
-                      <div className="detail-heading">{`$${order.price/100}`}</div>
+                      <div className="detail-heading">{`$${order.price / 100}`}</div>
                     </Col>
                   </Row>
                 </Col>
               </Row>
             </div>
           </div>
-          <Divider/>
+          <Divider />
           <div className="order-section order-steps">
             <Table
               size="middle"
@@ -187,7 +186,7 @@ class Order extends Component {
         </div>
         }
       </div>
-    )
+    );
   }
 }
 
@@ -200,11 +199,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getOrder: (id) => { dispatch(getOrder(id)) }
+    getOrder: (id) => { dispatch(getOrder(id)); },
   };
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Order);

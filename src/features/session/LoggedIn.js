@@ -7,13 +7,13 @@ import { Spin, Icon } from 'antd';
 class LoggedIn extends Component {
   componentWillMount() {
     if (!this.props.isLoggedIn) {
-      this.props.authenticate()
+      this.props.authenticate();
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isLoggedIn && !nextProps.isAuthenticating) {
-      this.props.history.push('/')
+      this.props.history.push('/');
     }
   }
 
@@ -23,32 +23,31 @@ class LoggedIn extends Component {
       height: '100vh',
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center'
-    }
+      alignItems: 'center',
+    };
     if (this.props.isLoggedIn && !this.props.isAuthenticating) {
       return React.cloneElement(React.Children.only(this.props.children), {
         location: this.props.history.location,
       });
-    } else {
-      return <div style={containerStyles}><Spin indicator={antIcon}/></div>
     }
+    return <div style={containerStyles}><Spin indicator={antIcon} /></div>;
   }
 }
 
 
 function mapStateToProps(state) {
   return {
-    isLoggedIn:       state.session.isLoggedIn,
+    isLoggedIn: state.session.isLoggedIn,
     isAuthenticating: state.session.isAuthenticating,
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    authenticate: () => { dispatch(authenticate()) }
-  }
+    authenticate: () => { dispatch(authenticate()); },
+  };
 }
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(withRouter(LoggedIn));

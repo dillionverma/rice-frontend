@@ -3,9 +3,8 @@ import { Row, Col, Card } from 'antd';
 import './Dashboard.css';
 
 class Dashboard extends Component {
-
   render() {
-    return(
+    return (
       <div>
         <Row>
           <Col sm={24} md={12} xl={6} className="chart-col">
@@ -40,7 +39,7 @@ class Dashboard extends Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 

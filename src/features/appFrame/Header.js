@@ -12,9 +12,9 @@ class Header extends Component {
           className="trigger"
           type={this.props.collapsed ? 'menu-unfold' : 'menu-fold'}
           onClick={this.props.collapse}
-          style={{float: 'left'}}
+          style={{ float: 'left' }}
         />
-       <HeaderSearch
+        <HeaderSearch
           className="search"
           placeholder="Search anything here"
           dataSource={['Restaurant', 'Orders', 'Dashboard']}
@@ -26,7 +26,7 @@ class Header extends Component {
           }}
         />
       </AntHeader>
-    )
+    );
   }
 }
 
