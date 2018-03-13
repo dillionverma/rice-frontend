@@ -4,6 +4,7 @@ import AppFrame         from './components/appFrame/AppFrame';
 import Landing          from './components/landing/Landing';
 import Dashboard        from './features/dashboard/Dashboard';
 import Tables           from './features/restaurant/Tables';
+import RestaurantLayout from './features/restaurant/RestaurantLayout';
 import LoginForm        from './features/session/LoginForm';
 import RegistrationForm from './features/registration/RegistrationForm';
 import LoggedIn         from './features/session/LoggedIn';
@@ -30,6 +31,7 @@ class App extends Component {
                 <Route path='/settings'          component={Settings} />
                 <Route path='/restaurant/tables' component={Tables} />
                 <Route path='/restaurant/menus'  component={Menus} />
+                <Route path='/restaurant/layout' component={RestaurantLayout} />
               </Switch>
             </AppFrame>
           </LoggedIn>

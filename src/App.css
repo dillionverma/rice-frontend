@@ -1,5 +1,7 @@
 @import '~antd/dist/antd.css';
 @import '~ant-design-pro/dist/ant-design-pro.css';
+@import '~react-grid-layout/css/styles.css';
+@import '~react-resizable/css/styles.css';
 
 .App {
   text-align: center;

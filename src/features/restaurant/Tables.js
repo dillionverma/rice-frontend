@@ -45,8 +45,10 @@ class Tables extends Component {
         <Card title="Tables">
           { this.state.tables ? this.state.tables.map((table, i) =>
           <Card.Grid key={i} style={gridStyle}>
-            <QRCode size={64} value={`${table.id}`} />
-            <Card.Meta style={{marginTop: '10px' }} description={`${table.number}`}/>
+            <div>
+              <QRCode size={64} value={`${table.id}`} />
+              <Card.Meta style={{marginTop: '10px' }} description={`${table.number}`}/>
+            </div>
           </Card.Grid>
           ) :
           <Card loading style={gridStyle}/>

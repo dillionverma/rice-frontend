@@ -1,0 +1,5 @@
+.react-grid-item {
+  background: #01d7ff75;
+  display: flex;
+  box-shadow: 0 0 7px 2px #00000012;
+}
