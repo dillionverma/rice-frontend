@@ -76,7 +76,6 @@ export default function SessionReducer(state = {}, action) {
       });
       return newState;
     case actionTypes.AUTHENTICATE_OWNER_SUCCESS:
-      localStorage.setItem('token', action.payload.data.token)
       newState = Object.assign({}, {
         ...state,
         isLoggedIn: true,
