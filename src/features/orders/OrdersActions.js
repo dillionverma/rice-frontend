@@ -6,7 +6,7 @@ import api from 'lib/api';
 export function getOrders(pagination) {
   return {
     type: actionTypes.GET_ORDERS,
-    payload: api.get('/api/v1/owner/orders', pagination),
+    payload: api.get('/v1/owner/orders', pagination),
   };
 }
 
@@ -15,6 +15,6 @@ export function getOrders(pagination) {
 export function getOrder(id) {
   return {
     type: actionTypes.GET_ORDER,
-    payload: api.get(`/api/v1/owner/orders/${id}`),
+    payload: api.get(`/v1/owner/orders/${id}`),
   };
 }
