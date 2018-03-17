@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getMenus } from './MenuActions';
+import { getMenus, createMenu, createMenuCategory } from './MenuActions';
 import MenusView from './MenusView';
 
 
@@ -27,7 +27,11 @@ class Menus extends Component {
     return(
       <div>
         { this.state.menus.length ?
-          <MenusView menus={this.state.menus} />
+        <MenusView 
+          menus={this.state.menus} 
+          createMenu={this.props.createMenu}
+          createMenuCategory={this.props.createMenuCategory}
+        />
          :
           <p>No Data</p>
         }
@@ -41,6 +45,8 @@ export default connect(
     menus: state.menus.menus,
   }),
   dispatch => ({
-    getMenus: () => dispatch(getMenus())
+    getMenus: () => dispatch(getMenus()),
+    createMenu: (params) => dispatch(createMenu(params)),
+    createMenuCategory: (params) => dispatch(createMenuCategory(params))
   }),
 )(Menus);
