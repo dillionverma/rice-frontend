@@ -65,5 +65,15 @@ export const failureActionTypes = actionTypeNames
   {},
 );
 
+export const successActionTypes = actionTypeNames
+  .map((a) => (/SUCCESS/).test(a) ? a : null)
+  .filter((a) => a != null)
+  .reduce((obj, actionTypeName) => ({
+    ...obj,
+    [actionTypeName]: actionTypeName,
+  }),
+  {},
+);
+
 
 export default actionTypes;

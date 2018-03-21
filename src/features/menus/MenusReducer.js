@@ -13,9 +13,11 @@ export default function MenusReducer(state = INITIAL_STATE, action) {
     case actionTypes.GET_MENUS:
       return state;
     case actionTypes.GET_MENUS_SUCCESS:
+      window.merge = merge
+      debugger;
       return {
         ...state,
-        entities: merge({}, state.entities, normalize(action.payload.data.menus, schema.menuList).entities)
+        entities: merge({}, state.entities, action.payload)
       };
     case actionTypes.GET_MENUS_FAILURE:
       return {
@@ -25,9 +27,10 @@ export default function MenusReducer(state = INITIAL_STATE, action) {
     case actionTypes.CREATE_MENU:
       return state;
     case actionTypes.CREATE_MENU_SUCCESS:
+      debugger;
       return {
         ...state,
-        entities: merge({}, state.entities, normalize(action.payload.data.menu, schema.Menu).entities)
+        entities: merge({}, state.entities, action.payload)
       };
     case actionTypes.CREATE_MENU_FAILURE:
       return {
@@ -39,7 +42,7 @@ export default function MenusReducer(state = INITIAL_STATE, action) {
     case actionTypes.CREATE_MENU_CATEGORY_SUCCESS:
       return {
         ...state,
-        entities: merge({}, state.entities, normalize(action.payload.data.menu_category, schema.menuCategory).entities)
+        entities: merge({}, state.entities, action.payload)
       };
     case actionTypes.CREATE_MENU_CATEGORY_FAILURE:
       return {

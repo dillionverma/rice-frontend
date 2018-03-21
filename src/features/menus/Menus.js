@@ -43,9 +43,8 @@ class Menus extends Component {
 export default connect(
   state => {
     const { entities } = state.menus
-    const mySchema = { menus: [ schema.menu ] }
     return {
-    menus: denormalize({ menus: Object.keys(entities.menus) }, mySchema, entities).menus,
+    menus: denormalize({ menus: Object.keys(entities.menus) }, schema.menuList, entities).menus,
   }},
   dispatch => ({
     getMenus: () => dispatch(getMenus()),
