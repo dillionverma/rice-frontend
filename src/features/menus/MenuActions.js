@@ -2,7 +2,7 @@ import actionTypes from 'actionTypes';
 import api from 'lib/api';
 import schema from './schema';
 
-export function getMenus() {
+export function fetchMenus() {
   return {
     type: actionTypes.GET_MENUS,
     payload: api.get('/v1/owner/menus'),

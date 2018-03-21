@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { denormalize } from 'normalizr';
-import schema from './schema';
-import { getMenus, createMenu, createMenuCategory } from './MenuActions';
+import { fetchMenus, createMenu, createMenuCategory } from './MenuActions';
+import { getMenus } from './selectors'
 import MenusView from './MenusView';
 
 class Menus extends Component {
@@ -11,7 +10,7 @@ class Menus extends Component {
   }
 
   componentDidMount() {
-    this.props.getMenus()
+    this.props.fetchMenus()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,13 +40,11 @@ class Menus extends Component {
 }
 
 export default connect(
-  state => {
-    const { entities } = state.menus;
-    return {
-      menus: denormalize({ menus: Object.keys(entities.menus) }, schema.menuList, entities).menus,
-  }},
+  state => ({
+    menus: getMenus(state.menus)
+  }),
   dispatch => ({
-    getMenus: () => dispatch(getMenus()),
+    fetchMenus: () => dispatch(fetchMenus()),
     createMenu: (params) => dispatch(createMenu(params)),
     createMenuCategory: (params) => dispatch(createMenuCategory(params))
   }),
