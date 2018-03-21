@@ -162,7 +162,7 @@ class MenusView extends Component {
                     />
                   </Panel>
                 )}
-                <Panel header={<span>New <Icon type="plus"/></span>} key={menu.categories ? menu.categories.length : 10}>
+                <Panel header={<span>New <Icon type="plus"/></span>} key={menu.categories ? menu.categories.length : 100}>
                   <MenuCategoryFormWrapper menu={menu} createMenuCategory={this.props.createMenuCategory} />
                 </Panel>
               </Collapse>
