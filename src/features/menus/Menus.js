@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getMenus, createMenu, createMenuCategory } from './MenuActions';
 import MenusView from './MenusView';
 
+import { denormalize, schema } from 'normalizr';
 
 class Menus extends Component {
   state = {
@@ -40,10 +41,24 @@ class Menus extends Component {
   }
 }
 
+const itemSchema = new schema.Entity('items');
+
+const menuCategorySchema = new schema.Entity('menu_categories', {
+  items: [ itemSchema ],
+});
+
+const menuSchema = new schema.Entity('menus', {
+  menu_categories: [ menuCategorySchema ],
+});
+
+const menuListSchema = [ menuSchema ];
 export default connect(
-  state => ({
-    menus: state.menus.menus,
-  }),
+  state => {
+    const { entities } = state.menus
+    const mySchema = { menus: [ menuSchema ] }
+    return {
+    menus: denormalize({ menus: Object.keys(entities.menus) }, mySchema, entities).menus,
+  }},
   dispatch => ({
     getMenus: () => dispatch(getMenus()),
     createMenu: (params) => dispatch(createMenu(params)),

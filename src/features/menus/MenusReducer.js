@@ -1,62 +1,59 @@
 import actionTypes from 'actionTypes';
+import { normalize, schema } from 'normalizr';
+import merge from 'lodash/merge';
 
-export default function MenusReducer(state = {}, action) {
-  let newState;
+const itemSchema = new schema.Entity('items');
+const menuCategorySchema = new schema.Entity('menu_categories', {
+  items: [ itemSchema ],
+});
+const menuSchema = new schema.Entity('menus', {
+  menu_categories: [ menuCategorySchema ],
+});
+const menuListSchema = [ menuSchema ];
 
+const INITIAL_STATE = {
+  entities: {menus: {}, menu_categories: {}, items: {}},
+  error: {},
+}
+
+export default function MenusReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case actionTypes.GET_MENUS:
-      newState = Object.assign({}, {
-        ...state,
-      });
-      return newState;
+      return state;
     case actionTypes.GET_MENUS_SUCCESS:
-      newState = Object.assign({}, {
+      return {
         ...state,
-        menus: action.payload.data.menus,
-      });
-      return newState;
+        entities: merge({}, state.entities, normalize(action.payload.data.menus, menuListSchema).entities)
+      };
     case actionTypes.GET_MENUS_FAILURE:
-      newState = Object.assign({}, {
+      return {
         ...state,
         error: action.payload.response.data.errors
-      });
-      return newState;
+      };
     case actionTypes.CREATE_MENU:
-      newState = Object.assign({}, {
-        ...state,
-      });
-      return newState;
+      return state;
     case actionTypes.CREATE_MENU_SUCCESS:
-      newState = Object.assign({}, {
+      return {
         ...state,
-        menus: [...state.menus, action.payload.data.menu],
-      });
-      return newState;
+        entities: merge({}, state.entities, normalize(action.payload.data.menu, menuSchema).entities)
+      };
     case actionTypes.CREATE_MENU_FAILURE:
-      newState = Object.assign({}, {
+      return {
         ...state,
         error: action.payload.response.data.errors
-      });
-      return newState;
+      };
     case actionTypes.CREATE_MENU_CATEGORY:
-      newState = Object.assign({}, {
-        ...state,
-      });
-      return newState;
+      return state;
     case actionTypes.CREATE_MENU_CATEGORY_SUCCESS:
-      const { menu_category } = action.payload.data;
-
-      newState = Object.assign({}, {
+      return {
         ...state,
-        //menus: ddmenus,
-      });
-      return newState;
+        entities: merge({}, state.entities, normalize(action.payload.data.menu_category, menuCategorySchema).entities)
+      };
     case actionTypes.CREATE_MENU_CATEGORY_FAILURE:
-      newState = Object.assign({}, {
+      return {
         ...state,
         error: action.payload.response.data.errors
-      });
-      return newState;
+      };
     default:
       return state;
   }
