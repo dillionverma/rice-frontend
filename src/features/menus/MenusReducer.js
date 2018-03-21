@@ -1,15 +1,7 @@
 import actionTypes from 'actionTypes';
-import { normalize, schema } from 'normalizr';
+import { normalize } from 'normalizr';
 import merge from 'lodash/merge';
-
-const itemSchema = new schema.Entity('items');
-const menuCategorySchema = new schema.Entity('menu_categories', {
-  items: [ itemSchema ],
-});
-const menuSchema = new schema.Entity('menus', {
-  menu_categories: [ menuCategorySchema ],
-});
-const menuListSchema = [ menuSchema ];
+import schema from './schema';
 
 const INITIAL_STATE = {
   entities: {menus: {}, menu_categories: {}, items: {}},
@@ -23,7 +15,7 @@ export default function MenusReducer(state = INITIAL_STATE, action) {
     case actionTypes.GET_MENUS_SUCCESS:
       return {
         ...state,
-        entities: merge({}, state.entities, normalize(action.payload.data.menus, menuListSchema).entities)
+        entities: merge({}, state.entities, normalize(action.payload.data.menus, schema.menuList).entities)
       };
     case actionTypes.GET_MENUS_FAILURE:
       return {
@@ -35,7 +27,7 @@ export default function MenusReducer(state = INITIAL_STATE, action) {
     case actionTypes.CREATE_MENU_SUCCESS:
       return {
         ...state,
-        entities: merge({}, state.entities, normalize(action.payload.data.menu, menuSchema).entities)
+        entities: merge({}, state.entities, normalize(action.payload.data.menu, schema.Menu).entities)
       };
     case actionTypes.CREATE_MENU_FAILURE:
       return {
@@ -47,7 +39,7 @@ export default function MenusReducer(state = INITIAL_STATE, action) {
     case actionTypes.CREATE_MENU_CATEGORY_SUCCESS:
       return {
         ...state,
-        entities: merge({}, state.entities, normalize(action.payload.data.menu_category, menuCategorySchema).entities)
+        entities: merge({}, state.entities, normalize(action.payload.data.menu_category, schema.menuCategory).entities)
       };
     case actionTypes.CREATE_MENU_CATEGORY_FAILURE:
       return {
