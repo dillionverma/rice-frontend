@@ -10,10 +10,9 @@ const INITIAL_STATE = {
 }
 
 export default function SessionReducer(state = {}, action) {
-  let newState;
   switch (action.type) {
     case actionTypes.LOGIN_OWNER:
-      newState = Object.assign({}, {
+      return {
         ...state,
         isLoggedIn: false,
         isAuthenticating: true,
@@ -21,11 +20,10 @@ export default function SessionReducer(state = {}, action) {
         emailMessage: null,
         passwordStatus: 'validating',
         passwordMessage: null,
-      });
-      return newState;
+      };
     case actionTypes.LOGIN_OWNER_SUCCESS:
       localStorage.setItem('token', action.payload.data.token)
-      newState = Object.assign({}, {
+      return {
         ...state,
         isLoggedIn: true,
         isAuthenticating: false,
@@ -34,31 +32,28 @@ export default function SessionReducer(state = {}, action) {
         passwordStatus: 'success',
         passwordMessage: null,
         token: action.payload.data.token
-      });
-      return newState;
+      };
     case actionTypes.LOGIN_OWNER_FAILURE:
       localStorage.removeItem('token')
       if (action.payload.response.data.errors[0].detail === 'email') {
-        newState = Object.assign({}, {
+        return {
           ...state,
           isLoggedIn: false,
           isAuthenticating: false,
           emailStatus: 'error',
           emailMessage: action.payload.response.data.errors[0].title,
-        });
+        };
       } else if (action.payload.response.data.errors[0].detail === 'password') {
-        newState = Object.assign({}, {
+        return {
           ...state,
           isLoggedIn: false,
           isAuthenticating: false,
           passwordStatus: 'error',
           passwordMessage: action.payload.response.data.errors[0].title,
-        });
+        };
       }
-      return newState;
     case actionTypes.LOGOUT_OWNER:
-      console.log('LOGOUT_OWNER')
-      newState = Object.assign({}, {
+      return {
         ...state,
         isLoggedIn: false,
         isAuthenticating: false,
@@ -66,31 +61,27 @@ export default function SessionReducer(state = {}, action) {
         emailMessage: null,
         passwordStatus: null,
         passwordMessage: null,
-      });
-      return newState;
+      };
     case actionTypes.AUTHENTICATE_OWNER:
-      newState = Object.assign({}, {
+      return {
         ...state,
         isLoggedIn: false,
         isAuthenticating: true,
-      });
-      return newState;
+      };
     case actionTypes.AUTHENTICATE_OWNER_SUCCESS:
-      newState = Object.assign({}, {
+      return {
         ...state,
         isLoggedIn: true,
         isAuthenticating: false,
         owner: action.payload.data.owner,
-      });
-      return newState;
+      };
     case actionTypes.AUTHENTICATE_OWNER_FAILURE:
-      newState = Object.assign({}, {
+      return {
         ...state,
         isLoggedIn: false,
         isAuthenticating: false,
         error: action.payload.response.data.errors,
-      });
-      return newState;
+      };
     default:
       return state;
   }

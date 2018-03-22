@@ -1,26 +1,19 @@
 import actionTypes from 'actionTypes';
 
 export default function MenusReducer(state = {}, action) {
-  let newState;
-
   switch (action.type) {
     case actionTypes.GET_MENUS:
-      newState = Object.assign({}, {
-        ...state,
-      });
-      return newState;
+      return state;
     case actionTypes.GET_MENUS_SUCCESS:
-      newState = Object.assign({}, {
+      return {
         ...state,
         menus: action.payload.data.menus,
-      });
-      return newState;
+      };
     case actionTypes.GET_MENUS_FAILURE:
-      newState = Object.assign({}, {
+      return {
         ...state,
         error: action.payload.response.data.errors
-      });
-      return newState;
+      };
     default:
       return state;
   }
