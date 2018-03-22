@@ -113,6 +113,7 @@ class OrdersView extends Component {
   render() {
     return(
         <Table
+          scroll={{ x: 1000}}
           size="middle"
           columns={columns}
           dataSource={this.props.orders}

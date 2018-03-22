@@ -171,6 +171,7 @@ class Order extends Component {
           <Divider/>
           <div className="order-section order-steps">
             <Table
+              scroll={{ x: 800}}
               size="middle"
               columns={columns}
               dataSource={order.order_items}
