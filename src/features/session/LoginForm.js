@@ -78,7 +78,7 @@ class LoginForm extends Component {
             {getFieldDecorator('email', {
               rules: [{ required: true, message: 'Please input your email!', type: 'email'}],
             })(
-              <Input onChange={this.handleChange} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Email" />
+              <Input onChange={this.handleChange} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="admin@example.com" />
             )}
           </FormItem>
           <FormItem
@@ -90,7 +90,7 @@ class LoginForm extends Component {
             {getFieldDecorator('password', {
               rules: [{ required: true, min: 6 }],
             })(
-              <Input onChange={this.handleChange} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+              <Input onChange={this.handleChange} prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="password" />
             )}
           </FormItem>
           <FormItem>
