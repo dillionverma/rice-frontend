@@ -9,34 +9,50 @@ class Dashboard extends Component {
       <div>
         <Row>
           <Col sm={24} md={12} xl={6} className="chart-col">
-            <Card>Total Sales</Card>
+            <Card title="Total Sales">
+              <p>Coming Soon...</p>
+            </Card>
           </Col>
           <Col sm={24} md={12} xl={6} className="chart-col">
-            <Card>Total Views</Card>
+            <Card title="Total Views">
+              <p>Coming Soon...</p>
+            </Card>
           </Col>
           <Col sm={24} md={12} xl={6} className="chart-col">
-            <Card>Peak Times</Card>
+            <Card title="Peak Times">
+              <p>Coming Soon...</p>
+            </Card>
           </Col>
           <Col sm={24} md={12} xl={6} className="chart-col">
-            <Card>Best selling food</Card>
+            <Card title="Best Selling Food">
+              <p>Coming Soon...</p>
+            </Card>
           </Col>
         </Row>
         <Row>
           <Col sm={24} className="chart-col">
-            <Card>Big Chart Here</Card>
+            <Card title="Total Sales">
+              <p>Coming Soon...</p>
+            </Card>
           </Col>
         </Row>
         <Row>
           <Col sm={12} className="chart-col">
-            <Card>Most Recent Orders Here</Card>
+            <Card title="Most Recent Orders">
+              <p>Coming Soon...</p>
+            </Card>
           </Col>
           <Col sm={12} className="chart-col">
-            <Card>Breakdown of foods ordered here</Card>
+            <Card title="Breakdown of Foods Ordered">
+              <p>Coming Soon...</p>
+            </Card>
           </Col>
         </Row>
         <Row>
           <Col sm={24} className="chart-col">
-            <Card>Customers by hour breakdown here</Card>
+            <Card title="Customers Per Hour">
+              <p>Coming Soon...</p>
+            </Card>
           </Col>
         </Row>
       </div>
