@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://ricepay.herokuapp.com/api';
 
 var HEADERS = {
   'Content-Type': 'application/json',
