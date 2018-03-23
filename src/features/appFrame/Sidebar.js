@@ -10,20 +10,20 @@ class Sidebar extends Component {
 
   handleClick = (e) => {
     console.log(e)
-    switch(parseInt(e.key, 10)) {
-      case 1:
+    switch(e.key) {
+      case 'dashboard':
         this.props.history.push('/dashboard')
         break;
-      case 2:
+      case 'orders':
         this.props.history.push('/orders')
         break;
-      case 6:
-        this.props.history.push('/menus')
+      case 'restaurant-menus':
+        this.props.history.push('/restaurant/menus')
         break;
-      case 10:
+      case 'restaurant-tables':
         this.props.history.push('/restaurant/tables')
         break;
-      case 13:
+      case 'logout':
         this.props.logout()
         break;
       default:
@@ -45,12 +45,12 @@ class Sidebar extends Component {
         <div className="logo">
           <img src={logo} alt={"logo"}/>
         </div>
-        <Menu theme="light" defaultSelectedKeys={['1']} onSelect={this.handleClick.bind(this)} mode="inline">
-          <Menu.Item key="1">
+        <Menu theme="light" defaultSelectedKeys={['dashboard']} onSelect={this.handleClick.bind(this)} mode="inline">
+          <Menu.Item key="dashboard">
             <Icon type="home" />
             <span>Home</span>
           </Menu.Item>
-          <Menu.Item key="2">
+          <Menu.Item key="orders">
             <Icon type="bars" />
             <span>Orders</span>
           </Menu.Item>
@@ -58,33 +58,25 @@ class Sidebar extends Component {
             key="sub1"
             title={<span><Icon type="area-chart" /><span>Reports</span></span>}
           >
-            <Menu.Item key="3">Overview</Menu.Item>
-            <Menu.Item key="4">Order History</Menu.Item>
-            <Menu.Item key="5">Refunds / Disputes</Menu.Item>
+            <Menu.Item disabled key="reports-overview">Overview</Menu.Item>
+            <Menu.Item disabled key="reports-order-history">Order History</Menu.Item>
+            <Menu.Item disabled key="report-refunds">Refunds / Disputes</Menu.Item>
           </SubMenu>
           <SubMenu
             key="sub2"
-            title={<span><Icon type="profile" /><span>Menu</span></span>}
+            title={<span><Icon type="shopping-cart" /><span>Restaurant</span></span>}
           >
-            <Menu.Item key="6">Overview</Menu.Item>
-            <Menu.Item key="7">Add Menu</Menu.Item>
-            <Menu.Item key="8">Add Menu Category</Menu.Item>
-            <Menu.Item key="9">Add Menu Item</Menu.Item>
+            <Menu.Item key="restaurant-menus">Menus</Menu.Item>
+            <Menu.Item key="restaurant-tables">Tables</Menu.Item>
           </SubMenu>
           <SubMenu
             key="sub3"
-            title={<span><Icon type="shopping-cart" /><span>Restaurant</span></span>}
-          >
-            <Menu.Item key="10">Tables</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub4"
             title={<span><Icon type="setting" /><span>Settings</span></span>}
           >
-            <Menu.Item key="11">General</Menu.Item>
-            <Menu.Item key="12">Edit Profile</Menu.Item>
+            <Menu.Item key="settings-">General</Menu.Item>
+            <Menu.Item key="settings-edit-profile">Edit Profile</Menu.Item>
           </SubMenu>
-          <Menu.Item key="13">
+          <Menu.Item key="logout">
             <Icon type="logout" />
             <span>Logout</span>
           </Menu.Item>
