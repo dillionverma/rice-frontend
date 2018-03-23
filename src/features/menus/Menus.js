@@ -41,7 +41,7 @@ class Menus extends Component {
 
 export default connect(
   state => ({
-    menus: getMenus(state.menus)
+    menus: getMenus(state)
   }),
   dispatch => ({
     fetchMenus: () => dispatch(fetchMenus()),
