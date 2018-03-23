@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Tabs, Collapse, List, Icon, Form, TimePicker, Button, Input } from 'antd';
 import numeral from 'numeral';
 import moment from 'moment';
+import PriceInput from './PriceInput';
 
 const Panel = Collapse.Panel;
 const TabPane = Tabs.TabPane
@@ -131,6 +132,71 @@ class MenuCategoryForm extends Component {
 
 const MenuCategoryFormWrapper = Form.create()(MenuCategoryForm)
 
+
+class ItemForm extends Component {
+  state = {
+    category: null,
+  }
+
+  _handleSubmit = (e) => {
+    e.preventDefault();
+
+    this.props.form.validateFields((err, fieldsValue) => {
+      if (err) {
+        return;
+      }
+      const params = { 
+        category_id: this.state.category.id,
+        item: {
+          name: fieldsValue['item-name'],
+          description: null,
+          price: null,
+          image_url: null,
+        }
+      };
+      console.log('Received values of form: ', params);
+      //this.props.createMenuCategory(params)
+    });
+  }
+
+  componentDidMount() {
+    this.setState({category: this.props.category})
+  }
+
+  render() {
+    const { getFieldDecorator } = this.props.form;
+    const nameConfig = {
+      rules: [{ type: 'string', required: true, message: 'Please input item name'}]
+    };
+    return (
+      <div className="center-container">
+        <Form onSubmit={this._handleSubmit} layout="inline">
+           <FormItem>
+              {getFieldDecorator('item-name', nameConfig)(
+                <Input id='item-name' placeholder="Item name" />
+              )}
+            </FormItem>
+           <FormItem>
+              {getFieldDecorator('item-description', nameConfig)(
+                <Input id='item-description' placeholder="Item description" />
+              )}
+            </FormItem>
+           <FormItem>
+              {getFieldDecorator('item-price')(
+                <PriceInput id='item-price' placeholder="Price"/>
+              )}
+            </FormItem>
+          <FormItem>
+            <Button type="primary" htmlType="submit">Submit</Button>
+          </FormItem>
+        </Form>
+      </div>
+    )
+  }
+}
+
+const ItemFormWrapper = Form.create()(ItemForm)
+
 class MenusView extends Component {
 
   render() {
@@ -160,6 +226,7 @@ class MenusView extends Component {
                         </List.Item>
                       )}
                     />
+                    <ItemFormWrapper category={category} createItem={this.props} />
                   </Panel>
                 )}
                 <Panel header={<span>New <Icon type="plus"/></span>} key={menu.categories ? menu.categories.length : 100}>
