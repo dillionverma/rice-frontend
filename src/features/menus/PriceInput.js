@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Input, Select, Button } from 'antd';
+import { Form, InputNumber, Select, Button } from 'antd';
+import numeral from 'numeral';
 const FormItem = Form.Item;
 const Option = Select.Option;
 
@@ -9,7 +10,7 @@ class PriceInput extends React.Component {
 
     const value = this.props.value || {};
     this.state = {
-      number: value.number || 0,
+      number: value.number || 100,
       currency: value.currency || 'cad',
     };
   }
@@ -20,22 +21,21 @@ class PriceInput extends React.Component {
       this.setState(value);
     }
   }
-  handleNumberChange = (e) => {
-    const number = parseInt(e.target.value || 0, 10);
-    if (isNaN(number)) {
-      return;
-    }
-    if (!('value' in this.props)) {
-      this.setState({ number });
-    }
+
+  handleNumberChange = (value) => {
+    const number = value;
+    if (isNaN(number)) return;
+    if (!('value' in this.props)) this.setState({ number });
     this.triggerChange({ number });
   }
+
   handleCurrencyChange = (currency) => {
     if (!('value' in this.props)) {
       this.setState({ currency });
     }
     this.triggerChange({ currency });
   }
+
   triggerChange = (changedValue) => {
     // Should provide an event to pass value to Form.
     const onChange = this.props.onChange;
@@ -44,20 +44,20 @@ class PriceInput extends React.Component {
     }
   }
   render() {
-    const { size } = this.props;
     const state = this.state;
     return (
       <span>
-        <Input
-          type="text"
-          size={size}
+        <InputNumber
+          defaultValue={state.number}
+          formatter={value => numeral(value/100).format('$0,0.00')}
+          parser={value => numeral(value).value()}
           value={state.number}
+          step={100}
           onChange={this.handleNumberChange}
           style={{ width: '65%', marginRight: '3%' }}
         />
         <Select
           value={state.currency}
-          size={size}
           style={{ width: '32%' }}
           onChange={this.handleCurrencyChange}
         >
