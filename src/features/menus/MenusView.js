@@ -149,8 +149,8 @@ class ItemForm extends Component {
         category_id: this.state.category.id,
         item: {
           name: fieldsValue['item-name'],
-          description: null,
-          price: null,
+          description: fieldsValue['item-description'],
+          price: fieldsValue['item-price'],
           image_url: null,
         }
       };
