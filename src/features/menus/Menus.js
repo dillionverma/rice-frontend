@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMenus, createMenu, createMenuCategory } from './MenuActions';
+import { fetchMenus, createMenu, createMenuCategory, createItem } from './MenuActions';
 import { getMenus } from './selectors'
 import MenusView from './MenusView';
 
@@ -46,6 +46,7 @@ export default connect(
   dispatch => ({
     fetchMenus: () => dispatch(fetchMenus()),
     createMenu: (params) => dispatch(createMenu(params)),
-    createMenuCategory: (params) => dispatch(createMenuCategory(params))
+    createMenuCategory: (params) => dispatch(createMenuCategory(params)),
+    createItem: (params) => dispatch(createItem(params))
   }),
 )(Menus);

@@ -56,6 +56,18 @@ export default function MenusReducer(state = INITIAL_STATE, action) {
         ...state,
         error: action.payload.response.data.errors
       };
+    case actionTypes.CREATE_ITEM:
+      return state;
+    case actionTypes.CREATE_ITEM_SUCCESS:
+      return {
+        ...state,
+        entities: merge({}, state.entities, action.payload)
+      };
+    case actionTypes.CREATE_ITEM_FAILURE:
+      return {
+        ...state,
+        error: action.payload.response.data.errors
+      };
     default:
       return state;
   }

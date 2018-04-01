@@ -136,6 +136,7 @@ const MenuCategoryFormWrapper = Form.create()(MenuCategoryForm)
 class ItemForm extends Component {
   state = {
     category: null,
+    menu: null,
   }
 
   _handleSubmit = (e) => {
@@ -146,7 +147,8 @@ class ItemForm extends Component {
         return;
       }
       const params = { 
-        category_id: this.state.category.id,
+        menu_id: this.state.menu.id,
+        menu_category_id: this.state.category.id,
         item: {
           name: fieldsValue['item-name'],
           description: fieldsValue['item-description'],
@@ -155,12 +157,15 @@ class ItemForm extends Component {
         }
       };
       console.log('Received values of form: ', params);
-      //this.props.createMenuCategory(params)
+      //this.props.createItem(params)
     });
   }
 
   componentDidMount() {
-    this.setState({category: this.props.category})
+    this.setState({
+      category: this.props.category,
+      menu: this.props.menu,
+    })
   }
 
   render() {
@@ -226,11 +231,18 @@ class MenusView extends Component {
                         </List.Item>
                       )}
                     />
-                    <ItemFormWrapper category={category} createItem={this.props} />
+                    <ItemFormWrapper 
+                      category={category} 
+                      menu={menu}
+                      createItem={this.props.createItem}
+                    />
                   </Panel>
                 )}
                 <Panel header={<span>New <Icon type="plus"/></span>} key={menu.categories ? menu.categories.length : 100}>
-                  <MenuCategoryFormWrapper menu={menu} createMenuCategory={this.props.createMenuCategory} />
+                  <MenuCategoryFormWrapper 
+                    menu={menu} 
+                    createMenuCategory={this.props.createMenuCategory}
+                  />
                 </Panel>
               </Collapse>
             </TabPane>

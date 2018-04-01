@@ -31,3 +31,13 @@ export function createMenuCategory(params){
     }
   }
 }
+
+export function createItem(params){
+  return {
+    type: actionTypes.CREATE_ITEM,
+    payload: api.post('/v1/owner/items/', params),
+    meta: {
+      schema: schema.item
+    }
+  }
+}
