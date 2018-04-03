@@ -10,7 +10,7 @@ class PriceInput extends React.Component {
 
     const value = this.props.value || {};
     this.state = {
-      number: value.number || 100,
+      number: value.number || 1000,
       currency: value.currency || 'cad',
     };
   }
@@ -48,11 +48,8 @@ class PriceInput extends React.Component {
     return (
       <span>
         <InputNumber
-          defaultValue={state.number}
-          formatter={value => numeral(value/100).format('$0,0.00')}
-          parser={value => numeral(value).value()}
-          value={state.number}
           step={100}
+          value={state.number}
           onChange={this.handleNumberChange}
           style={{ width: '65%', marginRight: '3%' }}
         />
@@ -61,8 +58,8 @@ class PriceInput extends React.Component {
           style={{ width: '32%' }}
           onChange={this.handleCurrencyChange}
         >
-          <Option value="usd">CAD</Option>
-          <Option value="cad">USD</Option>
+          <Option value="cad">CAD</Option>
+          <Option value="usd">USD</Option>
         </Select>
       </span>
     );

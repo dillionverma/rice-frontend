@@ -30,6 +30,7 @@ class Menus extends Component {
           menus={this.state.menus} 
           createMenu={this.props.createMenu}
           createMenuCategory={this.props.createMenuCategory}
+          createItem={this.props.createItem}
         />
          :
           <p>No Data</p>

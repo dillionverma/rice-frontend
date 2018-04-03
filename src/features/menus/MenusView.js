@@ -147,17 +147,17 @@ class ItemForm extends Component {
         return;
       }
       const params = { 
-        menu_id: this.state.menu.id,
-        menu_category_id: this.state.category.id,
         item: {
+          menu_id: this.state.menu.id,
+          menu_category_id: this.state.category.id,
           name: fieldsValue['item-name'],
           description: fieldsValue['item-description'],
-          price: fieldsValue['item-price'],
+          price: fieldsValue['item-price'].number,
           image_url: null,
         }
       };
       console.log('Received values of form: ', params);
-      //this.props.createItem(params)
+      this.props.createItem(params)
     });
   }
 
@@ -173,6 +173,17 @@ class ItemForm extends Component {
     const nameConfig = {
       rules: [{ type: 'string', required: true, message: 'Please input item name'}]
     };
+    const priceConfig = {
+      initialValue: { number: 1000, currency: 'cad' },
+      rules: [
+        { 
+          type: 'object',
+          //pattern: /^\$?([0-9]{1,3},([0-9]{3},)*[0-9]{3}|[0-9]+)(.[0-9][0-9])?$/,
+          required: true, 
+          message: 'Please input item price',
+        }
+      ]
+    };
     return (
       <div className="center-container">
         <Form onSubmit={this._handleSubmit} layout="inline">
@@ -187,7 +198,7 @@ class ItemForm extends Component {
               )}
             </FormItem>
            <FormItem>
-              {getFieldDecorator('item-price')(
+              {getFieldDecorator('item-price', priceConfig)(
                 <PriceInput id='item-price' placeholder="Price"/>
               )}
             </FormItem>

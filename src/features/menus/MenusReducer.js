@@ -59,10 +59,21 @@ export default function MenusReducer(state = INITIAL_STATE, action) {
     case actionTypes.CREATE_ITEM:
       return state;
     case actionTypes.CREATE_ITEM_SUCCESS:
-      return {
-        ...state,
-        entities: merge({}, state.entities, action.payload)
-      };
+      debugger;
+      const [ memu_category_id, { menu_id_2 } ] = Object.entries(action.payload.items)
+      //return {
+        //...state,
+        //entities: {
+          //...merge({}, state.entities, action.payload),
+          //menus: {
+            //...state.entities.menus,
+            //[menu_id]: {
+              //...state.entities.menus[menu_id],
+              //menu_categories: [...state.entities.menus[menu_id].menu_categories, category_id]
+            //}
+          //}
+        //}
+      //};
     case actionTypes.CREATE_ITEM_FAILURE:
       return {
         ...state,
