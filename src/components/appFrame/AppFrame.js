@@ -5,7 +5,7 @@ import { Layout, Breadcrumb } from 'antd';
 import './AppFrame.css';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import { logout } from '../session/SessionActions';
+import { logout } from '../../features/session/SessionActions';
 
 const { Content, Footer} = Layout;
 

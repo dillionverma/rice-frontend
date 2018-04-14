@@ -17,6 +17,9 @@ class Sidebar extends Component {
       case 'orders':
         this.props.history.push('/orders')
         break;
+      case 'settings':
+        this.props.history.push('/settings')
+        break;
       case 'restaurant-menus':
         this.props.history.push('/restaurant/menus')
         break;
@@ -73,7 +76,7 @@ class Sidebar extends Component {
             key="sub3"
             title={<span><Icon type="setting" /><span>Settings</span></span>}
           >
-            <Menu.Item disabled key="settings-">General</Menu.Item>
+            <Menu.Item key="settings">General</Menu.Item>
             <Menu.Item disabled key="settings-edit-profile">Edit Profile</Menu.Item>
           </SubMenu>
           <Menu.Item key="logout">
