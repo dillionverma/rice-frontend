@@ -28,6 +28,21 @@ const actionTypeNames = [
   'GET_MENUS_SUCCESS',
   'GET_MENUS_FAILURE',
 
+  'CREATE_MENU',
+  'CREATE_MENU_PENDING',
+  'CREATE_MENU_SUCCESS',
+  'CREATE_MENU_FAILURE',
+
+  'CREATE_MENU_CATEGORY',
+  'CREATE_MENU_CATEGORY_PENDING',
+  'CREATE_MENU_CATEGORY_SUCCESS',
+  'CREATE_MENU_CATEGORY_FAILURE',
+
+  'CREATE_ITEM',
+  'CREATE_ITEM_PENDING',
+  'CREATE_ITEM_SUCCESS',
+  'CREATE_ITEM_FAILURE',
+
   'GET_TABLES',
   'GET_TABLES_SUCCESS',
   'GET_TABLES_FAILURE',
@@ -47,6 +62,16 @@ const actionTypes = actionTypeNames.reduce(
 
 export const failureActionTypes = actionTypeNames
   .map((a) => (/FAILURE/).test(a) ? a : null)
+  .filter((a) => a != null)
+  .reduce((obj, actionTypeName) => ({
+    ...obj,
+    [actionTypeName]: actionTypeName,
+  }),
+  {},
+);
+
+export const successActionTypes = actionTypeNames
+  .map((a) => (/SUCCESS/).test(a) ? a : null)
   .filter((a) => a != null)
   .reduce((obj, actionTypeName) => ({
     ...obj,

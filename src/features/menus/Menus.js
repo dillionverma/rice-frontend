@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
-import { getMenus } from './MenuActions';
+import { fetchMenus, createMenu, createMenuCategory, createItem } from './MenuActions';
+import { getMenus } from './selectors'
 import MenusView from './MenusView';
-
 
 class Menus extends Component {
   state = {
@@ -11,7 +10,7 @@ class Menus extends Component {
   }
 
   componentDidMount() {
-    this.props.getMenus()
+    this.props.fetchMenus()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,7 +26,12 @@ class Menus extends Component {
     return(
       <div>
         { this.state.menus.length ?
-          <MenusView menus={this.state.menus} />
+        <MenusView 
+          menus={this.state.menus} 
+          createMenu={this.props.createMenu}
+          createMenuCategory={this.props.createMenuCategory}
+          createItem={this.props.createItem}
+        />
          :
           <p>No Data</p>
         }
@@ -38,9 +42,12 @@ class Menus extends Component {
 
 export default connect(
   state => ({
-    menus: state.menus.menus,
+    menus: getMenus(state)
   }),
   dispatch => ({
-    getMenus: () => dispatch(getMenus())
+    fetchMenus: () => dispatch(fetchMenus()),
+    createMenu: (params) => dispatch(createMenu(params)),
+    createMenuCategory: (params) => dispatch(createMenuCategory(params)),
+    createItem: (params) => dispatch(createItem(params))
   }),
 )(Menus);
