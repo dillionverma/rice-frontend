@@ -35,6 +35,13 @@ const actionTypeNames = [
   'CREATE_TABLE',
   'CREATE_TABLE_SUCCESS',
   'CREATE_TABLE_FAILURE',
+
+  // Dashboard
+
+  'GET_DASHBOARD_ORDERS',
+  'GET_DASHBOARD_ORDERS_PENDING',
+  'GET_DASHBOARD_ORDERS_SUCCESS',
+  'GET_DASHBOARD_ORDERS_FAILURE',
 ]
 
 const actionTypes = actionTypeNames.reduce(

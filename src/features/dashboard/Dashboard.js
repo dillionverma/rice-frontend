@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Row, Col, Card, Badge, Tooltip as ToolTip, Icon } from 'antd';
 import './Dashboard.css';
+import { connect } from 'react-redux';
+import { getOrders } from './actions';
+import RecentOrdersTable from './components/RecentOrdersTable';
 
 const { Meta } = Card;
 
@@ -31,7 +34,12 @@ const info = description =>
 
 class Dashboard extends Component {
 
+  componentDidMount() {
+    this.props.getOrders();
+  }
+
   render() {
+    const { recentOrdersLoading, recentOrders } = this.props;
     return(
       <div className="dashboard">
         <Row>
@@ -124,8 +132,15 @@ class Dashboard extends Component {
         </Row>
         <Row>
           <Col sm={12} className="chart-col">
-            <Card title="Most Recent Orders" extra={info("Most recent orders")}>
-              <p>Coming Soon...</p>
+            <Card title="Most Recent Orders" loading={recentOrdersLoading} extra={info("Most recent orders")}>
+              <RecentOrdersTable
+                data={recentOrders}
+                onRow={(record) => {
+                  return {
+                    onClick: () => {this.props.history.push(`/orders/${record.number}`)},
+                  };
+                }}
+              />
             </Card>
           </Col>
           <Col sm={12} className="chart-col">
@@ -152,4 +167,18 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+
+const mapStateToProps = state => {
+  return {
+    recentOrders: state.dashboard.recentOrders,
+    recentOrdersLoading: state.dashboard.recentOrdersLoading,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getOrders: () => dispatch(getOrders()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

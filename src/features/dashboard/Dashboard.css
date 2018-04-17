@@ -15,9 +15,13 @@
 }
 
 .dashboard .ant-card-body {
-  padding: 0 20px;
+  padding: 5px 20px;
   min-height: 150px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+}
+
+.dashboard .ant-table-small {
+  border: 0px;
 }
