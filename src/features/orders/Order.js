@@ -120,7 +120,7 @@ class Order extends Component {
   render() {
     const { order } = this.props;
     return(
-      <div>
+      <div className="page-container">
         {order &&
         <div>
           <div className="order-section order-heading">

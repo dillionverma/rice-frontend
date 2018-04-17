@@ -39,7 +39,7 @@ class AppFrame extends Component {
               <Breadcrumb.Item key={i}>{upCase(path)}</Breadcrumb.Item>
              )}
             </Breadcrumb>
-            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+            <div>
               {this.props.children}
             </div>
           </Content>

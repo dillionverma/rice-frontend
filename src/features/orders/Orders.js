@@ -55,7 +55,7 @@ class Orders extends Component {
 
   render() {
     return(
-      <div>
+      <div className="page-container">
         <OrdersView
           onRow={(record) => {
             return {
