@@ -18,3 +18,10 @@ export function getBestSelling() {
   };
 }
 
+export function getOrderStatuses() {
+  return {
+    type: actionTypes.GET_DASHBOARD_ORDER_STATUSES,
+    payload: api.get('/v1/owner/dashboard/order_statuses'),
+  };
+}
+

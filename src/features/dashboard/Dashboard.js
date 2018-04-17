@@ -3,7 +3,7 @@ import { BarChart, Bar, LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianG
 import { Row, Col, Card, Badge, Tooltip as ToolTip, Icon, Popover } from 'antd';
 import './Dashboard.css';
 import { connect } from 'react-redux';
-import { getOrders, getBestSelling } from './actions';
+import { getOrders, getBestSelling, getOrderStatuses } from './actions';
 import RecentOrdersTable from './components/RecentOrdersTable';
 
 const { Meta } = Card;
@@ -38,12 +38,17 @@ const info = description => {
 class Dashboard extends Component {
 
   componentDidMount() {
+    this.props.getOrderStatuses();
     this.props.getOrders();
     this.props.getBestSelling();
   }
 
   render() {
-    const { recentOrdersLoading, recentOrders, bestSellingLoading, bestSelling } = this.props;
+    const {
+      recentOrdersLoading, recentOrders,
+      bestSellingLoading, bestSelling,
+      orderStatusesLoading, orderStatuses,
+    } = this.props;
     return(
       <div className="dashboard">
         <Row>
@@ -83,35 +88,35 @@ class Dashboard extends Component {
             </Card>
           </Col>
           <Col sm={24} md={12} xl={6} className="chart-col">
-            <Card title="Orders" extra={info("Average number of orders in each state")}>
+            <Card title="Orders" loading={orderStatusesLoading} extra={info("Average number of orders in each state")}>
               <div>
                 <div className="order-total-container">
                   <div>
                     <Badge status={"success"}/>
                     <span style={{marginRight: '4px'}}>{"paid"}</span>
                   </div>
-                  <h2 className="order-total-text">1,203</h2>
+                  <h2 className="order-total-text">{orderStatuses ? orderStatuses.paid : null}</h2>
                 </div>
                 <div className="order-total-container">
                   <div>
                     <Badge status={"processing"}/>
                     <span style={{marginRight: '4px'}}>{"ordered"}</span>
                   </div>
-                  <h2 className="order-total-text">14</h2>
+                  <h2 className="order-total-text">{orderStatuses ? orderStatuses.ordered : null}</h2>
                 </div>
                 <div className="order-total-container">
                   <div>
                     <Badge status={"warning"}/>
                     <span style={{marginRight: '4px'}}>{"delivered"}</span>
                   </div>
-                  <h2 className="order-total-text">2</h2>
+                  <h2 className="order-total-text">{orderStatuses ? orderStatuses.delivered : null}</h2>
                 </div>
                 <div className="order-total-container">
                   <div>
                     <Badge status={"error"}/>
                     <span style={{marginRight: '4px'}}>{"cancelled"}</span>
                   </div>
-                  <h2 className="order-total-text">5</h2>
+                  <h2 className="order-total-text">{orderStatuses ? orderStatuses.cancelled : null}</h2>
                 </div>
               </div>
             </Card>
@@ -179,6 +184,8 @@ const mapStateToProps = state => {
     recentOrdersLoading: state.dashboard.recentOrdersLoading,
     bestSelling: state.dashboard.bestSelling,
     bestSellingLoading: state.dashboard.bestSellingLoading,
+    orderStatuses: state.dashboard.orderStatuses,
+    orderStatusesLoading: state.dashboard.orderStatusesLoading,
   }
 }
 
@@ -186,6 +193,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getOrders: () => dispatch(getOrders()),
     getBestSelling: () => dispatch(getBestSelling()),
+    getOrderStatuses: () => dispatch(getOrderStatuses()),
   }
 }
 
