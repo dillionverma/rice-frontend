@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Row, Col, Card, Badge, Tooltip as ToolTip, Icon } from 'antd';
+import { Row, Col, Card, Badge, Tooltip as ToolTip, Icon, Popover } from 'antd';
 import './Dashboard.css';
 import { connect } from 'react-redux';
-import { getOrders } from './actions';
+import { getOrders, getBestSelling } from './actions';
 import RecentOrdersTable from './components/RecentOrdersTable';
 
 const { Meta } = Card;
@@ -27,19 +27,23 @@ const pieData = [{name: 'Group A', value: 400}, {name: 'Group B', value: 300},
                   {name: 'Group C', value: 300}, {name: 'Group D', value: 200},
                   {name: 'Group E', value: 278}, {name: 'Group F', value: 189}]
 
-const info = description =>
-  <ToolTip title={description}>
-    <Icon style={{position: 'relative'}} type="question-circle-o" />
-  </ToolTip>
+const info = description => {
+  return(
+    <ToolTip title={description}>
+      <Icon style={{position: 'relative'}} type="question-circle-o" />
+    </ToolTip>
+  )
+}
 
 class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getOrders();
+    this.props.getBestSelling();
   }
 
   render() {
-    const { recentOrdersLoading, recentOrders } = this.props;
+    const { recentOrdersLoading, recentOrders, bestSellingLoading, bestSelling } = this.props;
     return(
       <div className="dashboard">
         <Row>
@@ -65,12 +69,13 @@ class Dashboard extends Component {
             </Card>
           </Col>
           <Col sm={24} md={12} xl={6} className="chart-col">
-            <Card title="Best Selling" extra={info("Menu items with the most sales")}>
-              <div><h2>Banana Cake</h2></div>
+            <Card title="Best Selling" loading={bestSellingLoading} extra={info("Menu items with the most sales")}>
+              <div><h2>{bestSelling ? bestSelling[0].name : null}</h2></div>
               <div style={{height: '40px'}} >
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={data}>
-                    <Bar dataKey='uv' fill='#29B6F6'/>
+                  <BarChart data={bestSelling}>
+                    <Bar dataKey='quantity' fill='#29B6F6'/>
+                    <XAxis hide dataKey="name" />
                     <Tooltip cursor={false} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -172,12 +177,15 @@ const mapStateToProps = state => {
   return {
     recentOrders: state.dashboard.recentOrders,
     recentOrdersLoading: state.dashboard.recentOrdersLoading,
+    bestSelling: state.dashboard.bestSelling,
+    bestSellingLoading: state.dashboard.bestSellingLoading,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getOrders: () => dispatch(getOrders()),
+    getBestSelling: () => dispatch(getBestSelling()),
   }
 }
 

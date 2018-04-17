@@ -11,3 +11,10 @@ export function getOrders() {
   };
 }
 
+export function getBestSelling() {
+  return {
+    type: actionTypes.GET_DASHBOARD_BEST_SELLING,
+    payload: api.get('/v1/owner/dashboard/best_selling'),
+  };
+}
+

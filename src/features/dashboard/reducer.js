@@ -31,6 +31,24 @@ export default function reducer(state = {}, action) {
         recentOrdersLoading: false,
         error: action.payload.response.data.errors
       };
+
+
+    case actionTypes.GET_DASHBOARD_BEST_SELLING_PENDING:
+      return {
+        bestSellingLoading: true,
+      };
+    case actionTypes.GET_DASHBOARD_BEST_SELLING_SUCCESS:
+      return {
+        ...state,
+        bestSelling: action.payload.data,
+        bestSellingLoading: false,
+      };
+    case actionTypes.GET_DASHBOARD_BEST_SELLING_FAILURE:
+      return {
+        ...state,
+        bestSellingLoading: false,
+        error: action.payload.response.data.errors
+      };
     default:
       return state;
   }
