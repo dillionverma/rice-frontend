@@ -67,6 +67,24 @@ export default function reducer(state = {}, action) {
         orderStatusesLoading: false,
         error: action.payload.response.data.errors
       };
+
+
+    case actionTypes.GET_DASHBOARD_DINING_DURATION_PENDING:
+      return {
+        diningDurationLoading: true,
+      };
+    case actionTypes.GET_DASHBOARD_DINING_DURATION_SUCCESS:
+      return {
+        ...state,
+        diningDuration: action.payload.data,
+        diningDurationLoading: false,
+      };
+    case actionTypes.GET_DASHBOARD_DINING_DURATION_FAILURE:
+      return {
+        ...state,
+        diningDurationLoading: false,
+        error: action.payload.response.data.errors
+      };
     default:
       return state;
   }

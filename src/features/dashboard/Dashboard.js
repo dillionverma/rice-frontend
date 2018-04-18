@@ -3,8 +3,9 @@ import { BarChart, Bar, LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianG
 import { Row, Col, Card, Badge, Tooltip as ToolTip, Icon, Popover } from 'antd';
 import './Dashboard.css';
 import { connect } from 'react-redux';
-import { getOrders, getBestSelling, getOrderStatuses } from './actions';
+import { getOrders, getBestSelling, getOrderStatuses, getDiningDuration } from './actions';
 import RecentOrdersTable from './components/RecentOrdersTable';
+import moment from 'moment';
 
 const { Meta } = Card;
 
@@ -41,6 +42,7 @@ class Dashboard extends Component {
     this.props.getOrderStatuses();
     this.props.getOrders();
     this.props.getBestSelling();
+    this.props.getDiningDuration();
   }
 
   render() {
@@ -48,6 +50,7 @@ class Dashboard extends Component {
       recentOrdersLoading, recentOrders,
       bestSellingLoading, bestSelling,
       orderStatusesLoading, orderStatuses,
+      diningDurationLoading, diningDuration,
     } = this.props;
     return(
       <div className="dashboard">
@@ -59,15 +62,20 @@ class Dashboard extends Component {
             </Card>
           </Col>
           <Col sm={24} md={12} xl={6} className="chart-col">
-            <Card title="Dining Duration" extra={info("Average time spanned from scanning QR code to paying")}>
+            <Card title="Dining Duration" loading={diningDurationLoading} extra={info("Average time spanned from scanning QR code to paying")}>
               <div>
                 <h2>12 minutes</h2>
               </div>
-              <div style={{height: '40px'}} >
+              <div style={{height: '60px'}} >
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={data}>
-                    <Line type='monotone' dataKey='pv' stroke='#66BB6A' strokeWidth={2} />
-                    <Tooltip />
+                  <LineChart data={diningDuration}>
+                    <Line type='monotone' dataKey='duration' stroke='#66BB6A' strokeWidth={2} />
+                    <Tooltip 
+                      cursor={false} 
+                      labelFormatter={o => moment(o).format('MMMM Do YYYY, h:mm:ss a')}
+                      formatter={(value, name, props) => `${moment.utc(value*1000).format('HH:mm:ss')} minutes`}
+                    />
+                    <XAxis hide dataKey="scanned_at" />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -160,6 +168,7 @@ class Dashboard extends Component {
                     <Pie 
                       isAnimationActive
                       data={pieData} 
+                      dataKey="value"
                       outerRadius={80} 
                       innerRadius={60}
                       paddingAngle={5}
@@ -186,6 +195,8 @@ const mapStateToProps = state => {
     bestSellingLoading: state.dashboard.bestSellingLoading,
     orderStatuses: state.dashboard.orderStatuses,
     orderStatusesLoading: state.dashboard.orderStatusesLoading,
+    diningDuration: state.dashboard.diningDuration,
+    diningDurationLoading: state.dashboard.diningDurationLoading,
   }
 }
 
@@ -193,6 +204,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getOrders: () => dispatch(getOrders()),
     getBestSelling: () => dispatch(getBestSelling()),
+    getDiningDuration: () => dispatch(getDiningDuration()),
     getOrderStatuses: () => dispatch(getOrderStatuses()),
   }
 }

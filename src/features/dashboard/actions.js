@@ -25,3 +25,9 @@ export function getOrderStatuses() {
   };
 }
 
+export function getDiningDuration() {
+  return {
+    type: actionTypes.GET_DASHBOARD_DINING_DURATION,
+    payload: api.get('/v1/owner/dashboard/dining_duration'),
+  };
+}
