@@ -3,9 +3,10 @@ import { BarChart, Bar, LineChart, Line, PieChart, Pie, XAxis, YAxis, CartesianG
 import { Row, Col, Card, Badge, Tooltip as ToolTip, Icon, Popover } from 'antd';
 import './Dashboard.css';
 import { connect } from 'react-redux';
-import { getOrders, getBestSelling, getOrderStatuses, getDiningDuration } from './actions';
+import { getOrders, getBestSelling, getOrderStatuses, getDiningDuration, getTotalSales } from './actions';
 import RecentOrdersTable from './components/RecentOrdersTable';
 import moment from 'moment';
+import numeral from 'numeral';
 
 const { Meta } = Card;
 
@@ -43,6 +44,7 @@ class Dashboard extends Component {
     this.props.getOrders();
     this.props.getBestSelling();
     this.props.getDiningDuration();
+    this.props.getTotalSales();
   }
 
   render() {
@@ -51,14 +53,15 @@ class Dashboard extends Component {
       bestSellingLoading, bestSelling,
       orderStatusesLoading, orderStatuses,
       diningDurationLoading, diningDuration,
+      totalSalesLoading, totalSales,
     } = this.props;
     return(
       <div className="dashboard">
         <Row>
           <Col sm={24} md={12} xl={6} className="chart-col">
-            <Card title="Total Sales" extra={info("Total sales from orders")}>
-              <h1>$ 120,000 </h1>
-              <Meta description="Tips: $12.00" />
+            <Card title="Total Sales" loading={totalSalesLoading} extra={info("Total sales from orders")}>
+              <h1>{totalSales ? numeral(totalSales.total_sales).format('$0,0.00') : null}</h1>
+              <Meta description={`Tips: ${totalSales ? numeral(totalSales.tips).format('$0,0.00') : null}`} />
             </Card>
           </Col>
           <Col sm={24} md={12} xl={6} className="chart-col">
@@ -189,23 +192,26 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    recentOrders: state.dashboard.recentOrders,
-    recentOrdersLoading: state.dashboard.recentOrdersLoading,
-    bestSelling: state.dashboard.bestSelling,
-    bestSellingLoading: state.dashboard.bestSellingLoading,
-    orderStatuses: state.dashboard.orderStatuses,
-    orderStatusesLoading: state.dashboard.orderStatusesLoading,
-    diningDuration: state.dashboard.diningDuration,
+    recentOrders:          state.dashboard.recentOrders,
+    recentOrdersLoading:   state.dashboard.recentOrdersLoading,
+    bestSelling:           state.dashboard.bestSelling,
+    bestSellingLoading:    state.dashboard.bestSellingLoading,
+    orderStatuses:         state.dashboard.orderStatuses,
+    orderStatusesLoading:  state.dashboard.orderStatusesLoading,
+    diningDuration:        state.dashboard.diningDuration,
     diningDurationLoading: state.dashboard.diningDurationLoading,
+    totalSales:            state.dashboard.totalSales,
+    totalSalesLoading:     state.dashboard.totalSalesLoading,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getOrders: () => dispatch(getOrders()),
-    getBestSelling: () => dispatch(getBestSelling()),
+    getOrders:         () => dispatch(getOrders()),
+    getBestSelling:    () => dispatch(getBestSelling()),
+    getOrderStatuses:  () => dispatch(getOrderStatuses()),
     getDiningDuration: () => dispatch(getDiningDuration()),
-    getOrderStatuses: () => dispatch(getOrderStatuses()),
+    getTotalSales:     () => dispatch(getTotalSales()),
   }
 }
 

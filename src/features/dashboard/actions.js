@@ -31,3 +31,10 @@ export function getDiningDuration() {
     payload: api.get('/v1/owner/dashboard/dining_duration'),
   };
 }
+
+export function getTotalSales() {
+  return {
+    type: actionTypes.GET_DASHBOARD_TOTAL_SALES,
+    payload: api.get('/v1/owner/dashboard/total_sales'),
+  };
+}
