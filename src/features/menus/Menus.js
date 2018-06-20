@@ -25,7 +25,7 @@ class Menus extends Component {
   render() {
     console.log(this.state.menus)
     return(
-      <div>
+      <div className="page-container">
         { this.state.menus.length ?
           <MenusView menus={this.state.menus} />
          :

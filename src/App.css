@@ -12,3 +12,9 @@
 .ant-table-row:hover {
   cursor: pointer;
 }
+
+.page-container {
+  background: #ffffff;
+  padding: 24px;
+  min-height: 360px;
+}
