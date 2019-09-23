@@ -29,7 +29,7 @@ class Landing extends Component {
                 <div className="flex col-12 spread">
                   <a className="logo"><img src={logo} style={{width: '50%'}} alt="RiceCompany Logo"/></a>
                   <div style={{margin: 'auto 0'}}>
-                    <a href="https://demo.ricepay.io/" id="demo-link" className="nav-link button">Demo</a>
+                    <Link to="/login" id="demo-link" className="nav-link button">Demo</Link>
                     <Link to="/signup" className="nav-link secondary-color">Sign Up</Link>
                     <Link to="/login" className="nav-link secondary-color">Login</Link>
                   </div>
